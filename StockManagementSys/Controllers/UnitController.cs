@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StockManagementSys.Data;
+using StockManagementSys.Interfaces;
 using StockManagementSys.Models;
 
 namespace StockManagementSys.Controllers
@@ -12,13 +13,15 @@ namespace StockManagementSys.Controllers
         public IActionResult Index()
         {
 
-            List<Unit> units=_context.Units.ToList();
+            List<Unit> units = _unitRepo.GetItems();//_context.Units.ToList();
             return View(units);
         }
-        private readonly InventoryContext _context;
-        public UnitController(InventoryContext context)
+       
+        private IUnits _unitRepo;
+        public UnitController( IUnits unitrepo)
         {
-            _context = context;
+            
+            _unitRepo = unitrepo;
         }
 
         public IActionResult Create()
@@ -28,14 +31,14 @@ namespace StockManagementSys.Controllers
             return View(unit);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Unit unit)
         {
 
 
             try
             {
-                _context.Units.Add(unit);
-                _context.SaveChanges();
+               unit= _unitRepo.Create(unit);
 
             }
             catch 
@@ -46,15 +49,15 @@ namespace StockManagementSys.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Details(int Id)
+        public IActionResult Details(int id)
         {
-            Unit unit = GetUnit(Id);
+            Unit unit = _unitRepo.GetUnit(id);
             return View(unit);
 
         }
-        public IActionResult Edit(int Id)
+        public IActionResult Edit(int id)
         {
-            Unit unit = GetUnit(Id);
+            Unit unit = _unitRepo.GetUnit(id);
             return View(unit);
 
         }
@@ -66,9 +69,7 @@ namespace StockManagementSys.Controllers
 
             try
             {
-                _context.Units.Attach(unit);
-                _context.Entry(unit).State = EntityState.Modified;
-                _context.SaveChanges();
+                unit= _unitRepo.Edit(unit);
 
 
             }
@@ -83,7 +84,7 @@ namespace StockManagementSys.Controllers
 
         public IActionResult Delete(int Id)
         {
-            Unit unit = GetUnit(Id);
+            Unit unit = _unitRepo.GetUnit(Id);
             return View(unit);
 
         }
@@ -95,10 +96,8 @@ namespace StockManagementSys.Controllers
 
             try
             {
-                _context.Units.Attach(unit);
-                _context.Entry(unit).State = EntityState.Deleted;
-                _context.SaveChanges();
-
+               
+                unit=_unitRepo.Delete(unit);
 
             }
             catch
@@ -109,12 +108,7 @@ namespace StockManagementSys.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        private Unit GetUnit(int id)
-        {
-            Unit unit = _context.Units.Where(x => x.Id == id).FirstOrDefault();
-            return unit;
-
-        }
+     
       
     }
 }
