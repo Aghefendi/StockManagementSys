@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using StockManagementSys.Data;
 using StockManagementSys.Interfaces;
 using StockManagementSys.Models;
@@ -38,9 +39,36 @@ namespace StockManagementSys.Repositories
             return unit;
         }
 
-        public List<Unit> GetItems()
+        public List<Unit> GetItems(string SortProperty , SortOrder sortOrder)
         {
             List<Unit> units = _context.Units.ToList();
+
+            if (SortProperty.ToLower() == "name")
+            {
+                if (sortOrder == SortOrder.Ascending)
+                {
+
+                    units=units.OrderBy(x => x.Name).ToList();
+                }
+                else
+                {
+                    units=units.OrderByDescending(x=> x.Name).ToList();
+                }
+
+
+            }
+            else
+            {
+                if (sortOrder == SortOrder.Ascending)
+                {
+                    units = units.OrderBy(d => d.Description).ToList();
+
+                }
+                else
+                {
+                    units = units.OrderByDescending(d => d.Description).ToList();
+                }
+            }
             return units;
         }
 

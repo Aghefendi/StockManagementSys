@@ -4,6 +4,7 @@ namespace StockManagementSys.Models
 {
     public class Unit
     {
+        public enum SortOrder{Ascending=0, Descending}
         public int Id { get; set; }
         [Required]
         [StringLength(20)]

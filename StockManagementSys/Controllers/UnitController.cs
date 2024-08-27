@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using StockManagementSys.Data;
 using StockManagementSys.Interfaces;
@@ -10,10 +11,42 @@ namespace StockManagementSys.Controllers
     {
 
        
-        public IActionResult Index()
+        public IActionResult Index(string sortExpression="")
         {
+            ViewData["SortParamName"] = "name";
+            ViewData["SortParamDesc"] = "desciption";
 
-            List<Unit> units = _unitRepo.GetItems();//_context.Units.ToList();
+            SortOrder sortOrder;
+            string sortProperty;
+
+            switch(sortExpression.ToLower()){
+
+                case "name_desc":
+                    sortOrder = SortOrder.Descending;
+                    sortProperty = "name";
+                    ViewData["SortParamName"] = "name";
+                    break;
+                case "desciption":
+                    sortOrder = SortOrder.Ascending;
+                    sortProperty="description";
+                    ViewData["SortParamDesc"] = "description_desc";
+                    break;
+                case "desciption_desc":
+                    sortOrder = SortOrder.Descending;
+                    sortProperty = "description";
+                    ViewData["SortParamDesc"] = "description";
+
+                    break;
+                default:
+                    sortOrder = SortOrder.Ascending;
+                    sortProperty = "name";
+                    ViewData["SortParamName"] = "name_desc";
+                    break;
+
+            }
+            
+
+            List<Unit> units = _unitRepo.GetItems(sortProperty,sortOrder);//_context.Units.ToList();
             return View(units);
         }
        
