@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <h1>Index</h1>
 
@@ -13,11 +14,13 @@
     <thead>
         <tr>
             <th>
+                <i class="@ViewData["SortIconName"]" arial-hidden="true"></i>
                 <a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamName"]"> 
                 @Html.DisplayNameFor(model => model.Name)
                 </a>
             </th>
             <th>
+                <i class="@ViewData["SortIconDesc"]" arial-hidden="true"></i>
                  <a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamDesc"]"> 
                 @Html.DisplayNameFor(model => model.Description)
                 </a>

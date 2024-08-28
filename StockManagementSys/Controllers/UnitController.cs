@@ -10,45 +10,70 @@ namespace StockManagementSys.Controllers
     public class UnitController : Controller
     {
 
-       
-        public IActionResult Index(string sortExpression="")
-        {
-            ViewData["SortParamName"] = "name";
-            ViewData["SortParamDesc"] = "desciption";
+        private SortModel ApplySort(string sortExpression)
+        
 
-            SortOrder sortOrder;
-            string sortProperty;
+            {
+                ViewData["SortParamName"] = "name";
+                ViewData["SortParamDesc"] = "description";
 
-            switch(sortExpression.ToLower()){
+                ViewData["SortIconName"] = "";
+                ViewData["SortIconDesc"] = "";
 
-                case "name_desc":
-                    sortOrder = SortOrder.Descending;
-                    sortProperty = "name";
-                    ViewData["SortParamName"] = "name";
-                    break;
-                case "desciption":
-                    sortOrder = SortOrder.Ascending;
-                    sortProperty="description";
-                    ViewData["SortParamDesc"] = "description_desc";
-                    break;
-                case "desciption_desc":
-                    sortOrder = SortOrder.Descending;
-                    sortProperty = "description";
-                    ViewData["SortParamDesc"] = "description";
+                //SortOrder sortOrder;
+                //string sortProperty;
 
-                    break;
-                default:
-                    sortOrder = SortOrder.Ascending;
-                    sortProperty = "name";
-                    ViewData["SortParamName"] = "name_desc";
-                    break;
+                SortModel sortModel = new SortModel();
+
+                switch (sortExpression.ToLower())
+                {
+
+                    case "name_desc":
+                        sortModel.SortOrder = SortOrder.Descending;
+                        sortModel.SortProperty = "name";
+                        ViewData["SortParamName"] = "name";
+                        ViewData["SortIconName"] = "fa fa-arrow-up";
+                        break;
+                    case "description":
+                        sortModel.SortOrder = SortOrder.Ascending;
+                        sortModel.SortProperty = "description";
+                        ViewData["SortParamDesc"] = "description_desc";
+                        ViewData["SortIconDesc"] = "fa fa-arrow-down";
+                        break;
+                    case "description_desc":
+                        sortModel.SortOrder = SortOrder.Descending;
+                        sortModel.SortProperty = "description";
+                        ViewData["SortParamDesc"] = "description";
+                        ViewData["SortIconDesc"] = "fa fa-arrow-up";
+
+
+
+                        break;
+                    default:
+                        sortModel.SortOrder = SortOrder.Ascending;
+                        sortModel.SortProperty = "name";
+                        ViewData["SortIconName"] = "fa fa-arrow-down";
+                        ViewData["SortParamName"] = "name_desc";
+
+                        break;
+
+                }
+
+                return sortModel;
+
 
             }
-            
 
-            List<Unit> units = _unitRepo.GetItems(sortProperty,sortOrder);//_context.Units.ToList();
-            return View(units);
-        }
+            public IActionResult Index(string sortExpression = "")
+            {
+
+                SortModel sortModel = ApplySort(sortExpression);
+
+
+
+                List<Unit> units = _unitRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder);//_context.Units.ToList();
+                return View(units);
+            } 
        
         private IUnits _unitRepo;
         public UnitController( IUnits unitrepo)
