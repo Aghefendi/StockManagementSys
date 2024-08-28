@@ -33,6 +33,77 @@ namespace StockManagementSys.Models
             return tmp;
         }
 
+        public void ApplySort(String sortExpression)
+        {
+            //ViewData["SortParamName"] = "name";
+            //ViewData["SortParamDesc"] = "description";
+
+            //ViewData["SortIconName"] = "";
+            //ViewData["SortIconDesc"] = "";
+
+            //SortOrder sortOrder;
+            //string sortProperty;
+            this.GetColumn("name").SortIcon = "";
+            this.GetColumn("name").SortExpression = "name";
+
+            this.GetColumn("description").SortIcon = "";
+            this.GetColumn("description").SortExpression = "description";
+
+
+            
+
+            switch (sortExpression.ToLower())
+            {
+
+                case "name_desc":
+                    this.SortOrder = SortOrder.Descending;
+                    this.SortProperty = "name";
+
+                    this.GetColumn("name").SortIcon = "fa fa-arrow-up";
+                    this.GetColumn("name").SortExpression = "name";
+
+                    //  ViewData["SortParamName"] = "name";
+                    // ViewData["SortIconName"] = "fa fa-arrow-up";
+                    break;
+
+                case "description":
+                    this.SortOrder = SortOrder.Ascending;
+                    this.SortProperty = "description";
+
+                    this.GetColumn("description").SortIcon = "fa fa-arrow-down";
+                    this.GetColumn("description").SortExpression = "description_desc";
+
+                    //ViewData["SortParamDesc"] = "description_desc";
+                    //ViewData["SortIconDesc"] = "fa fa-arrow-down";
+                    break;
+                case "description_desc":
+                    this.SortOrder = SortOrder.Descending;
+                    this.SortProperty = "description";
+
+                    this.GetColumn("description").SortIcon = "fa fa-arrow-up";
+                    this.GetColumn("description").SortExpression = "description";
+
+                    //ViewData["SortParamDesc"] = "description";
+                    //ViewData["SortIconDesc"] = "fa fa-arrow-up";
+                    break;
+                default:
+                    this.SortOrder = SortOrder.Ascending;
+                    this.SortProperty = "name";
+
+                    this.GetColumn("name").SortIcon = "fa fa-arrow-down";
+                    this.GetColumn("name").SortExpression = "name_desc";
+
+                    //ViewData["SortIconName"] = "fa fa-arrow-down";
+                    //ViewData["SortParamName"] = "name_desc";
+
+                    break;
+
+            }
+
+          
+
+        }
+
         public class SortableColumn
         {
 

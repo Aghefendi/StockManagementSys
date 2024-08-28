@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    SortModel sortModel =(SortModel) ViewData["sortModel"];
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -14,15 +15,15 @@
     <thead>
         <tr>
             <th>
-                <i class="@ViewData["SortIconName"]" arial-hidden="true"></i>
-                <a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamName"]"> 
+                <i class="@sortModel.GetColumn("name").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("name").SortExpression"> 
                 @Html.DisplayNameFor(model => model.Name)
                 </a>
             </th>
             <th>
-                <i class="@ViewData["SortIconDesc"]" arial-hidden="true"></i>
-                 <a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamDesc"]"> 
-                @Html.DisplayNameFor(model => model.Description)
+                <i class="@sortModel.GetColumn("description").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("description").SortExpression">
+                    @Html.DisplayNameFor(model => model.Description)
                 </a>
             </th>
             <th></th>

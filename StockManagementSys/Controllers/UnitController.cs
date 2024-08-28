@@ -11,67 +11,73 @@ namespace StockManagementSys.Controllers
     {
 
         private SortModel ApplySort(string sortExpression)
-        
 
+
+        {
+            ViewData["SortParamName"] = "name";
+            ViewData["SortParamDesc"] = "description";
+
+            ViewData["SortIconName"] = "";
+            ViewData["SortIconDesc"] = "";
+
+            //SortOrder sortOrder;
+            //string sortProperty;
+
+            SortModel sortModel = new SortModel();
+
+            switch (sortExpression.ToLower())
             {
-                ViewData["SortParamName"] = "name";
-                ViewData["SortParamDesc"] = "description";
 
-                ViewData["SortIconName"] = "";
-                ViewData["SortIconDesc"] = "";
-
-                //SortOrder sortOrder;
-                //string sortProperty;
-
-                SortModel sortModel = new SortModel();
-
-                switch (sortExpression.ToLower())
-                {
-
-                    case "name_desc":
-                        sortModel.SortOrder = SortOrder.Descending;
-                        sortModel.SortProperty = "name";
-                        ViewData["SortParamName"] = "name";
-                        ViewData["SortIconName"] = "fa fa-arrow-up";
-                        break;
-                    case "description":
-                        sortModel.SortOrder = SortOrder.Ascending;
-                        sortModel.SortProperty = "description";
-                        ViewData["SortParamDesc"] = "description_desc";
-                        ViewData["SortIconDesc"] = "fa fa-arrow-down";
-                        break;
-                    case "description_desc":
-                        sortModel.SortOrder = SortOrder.Descending;
-                        sortModel.SortProperty = "description";
-                        ViewData["SortParamDesc"] = "description";
-                        ViewData["SortIconDesc"] = "fa fa-arrow-up";
+                case "name_desc":
+                    sortModel.SortOrder = SortOrder.Descending;
+                    sortModel.SortProperty = "name";
+                    ViewData["SortParamName"] = "name";
+                    ViewData["SortIconName"] = "fa fa-arrow-up";
+                    break;
+                case "description":
+                    sortModel.SortOrder = SortOrder.Ascending;
+                    sortModel.SortProperty = "description";
+                    ViewData["SortParamDesc"] = "description_desc";
+                    ViewData["SortIconDesc"] = "fa fa-arrow-down";
+                    break;
+                case "description_desc":
+                    sortModel.SortOrder = SortOrder.Descending;
+                    sortModel.SortProperty = "description";
+                    ViewData["SortParamDesc"] = "description";
+                    ViewData["SortIconDesc"] = "fa fa-arrow-up";
 
 
 
-                        break;
-                    default:
-                        sortModel.SortOrder = SortOrder.Ascending;
-                        sortModel.SortProperty = "name";
-                        ViewData["SortIconName"] = "fa fa-arrow-down";
-                        ViewData["SortParamName"] = "name_desc";
+                    break;
+                default:
+                    sortModel.SortOrder = SortOrder.Ascending;
+                    sortModel.SortProperty = "name";
+                    ViewData["SortIconName"] = "fa fa-arrow-down";
+                    ViewData["SortParamName"] = "name_desc";
 
-                        break;
-
-                }
-
-                return sortModel;
-
+                    break;
 
             }
 
-            public IActionResult Index(string sortExpression = "")
+            return sortModel;
+
+
+        }
+
+        public IActionResult Index(string sortExpression = "")
             {
 
-                SortModel sortModel = ApplySort(sortExpression);
+                SortModel sortModel =new SortModel();
+            sortModel.AddColumn("name");
+            sortModel.AddColumn("description");
+            sortModel.ApplySort(sortExpression);
+            ViewData["sortModel"] = sortModel;
 
 
 
-                List<Unit> units = _unitRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder);//_context.Units.ToList();
+
+
+                List<Unit> units = _unitRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder);  //_context.Units.ToList();
                 return View(units);
             } 
        
