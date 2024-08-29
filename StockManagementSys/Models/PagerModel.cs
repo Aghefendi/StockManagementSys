@@ -25,9 +25,9 @@
         {
             this.TotalItem = totalItem;
             this.CurrentPage = currentPage;
-            this.PageSize = PageSize;
+            this.PageSize = pageSize;
 
-            int totalPages = (int)(Math.Ceiling((decimal)totalItem) / ((decimal)PageSize));
+            int totalPages = (int)Math.Ceiling((decimal)totalItem / (decimal)pageSize);
             TotalPages = totalPages;
             int startPage = currentPage-5;
             int endPage = currentPage+4;

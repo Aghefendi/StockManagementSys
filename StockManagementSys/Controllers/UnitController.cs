@@ -70,7 +70,7 @@ namespace StockManagementSys.Controllers
 
         }
 
-        public IActionResult Index(string sortExpression = "",string SearchText="")
+        public IActionResult Index(string sortExpression = "",string SearchText="", int pg=1, int pageSize=5)
             {
 
                 SortModel sortModel =new SortModel();
@@ -81,8 +81,16 @@ namespace StockManagementSys.Controllers
 
             ViewBag.SearchText = SearchText;
 
-                List<Unit> units = _unitRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder , SearchText );  //_context.Units.ToList();
-                return View(units);
+                List<Unit> units = _unitRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder , SearchText );//_context.Units.ToList();
+            var pager = new PagerModel(units.Count, pg, pageSize);
+
+            pager.SortExpression = sortExpression;
+            this.ViewBag.Pager = pager;
+            units=units.Skip((pg-1)*pageSize).Take(pageSize).ToList();
+
+            
+            
+            return View(units);
             } 
        
         private IUnits _unitRepo;

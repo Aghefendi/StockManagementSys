@@ -1,0 +1,64 @@
+﻿@model PagerModel
+
+
+<style>
+    .page-link{color:black!important;}
+    .page-item.active .page-link{
+        z-index:3;
+        color:#fff;
+        background-color:red!important;
+        border-color:red;
+
+
+    }
+
+</style>
+<div class="container btn-group" style="background-color:black;border-radius:10px;height:45px;">
+
+    <div class="col-4 p-0 justify-content-end mt-1">
+        <form asp-action="index">
+
+            <span class="btn-group">
+                <input class="form-control" type="text" name="SearchText" value="@ViewBag.SearchText" placeholder="SearchText" />
+                <input class="p-1 m-lg-2 btn btn-sm btn-danger" style="border-radius:10px" type="submit" value="SearchText" />
+
+            </span>
+        </form>
+
+    </div>
+
+
+<div class="container mt-1">
+    <ul class="pagination justify-content-end">
+        @for (var pge= Model.StartPages; pge <= Model.EndPage; pge++)
+        {
+            <li class="page-item @(pge==Model.CurrentPage?"active":"")">
+
+                @if (pge != Model.CurrentPage)
+                {
+
+                    <a class="page-link" asp-action="@Model.Action"
+                    asp-route-pg="@pge"
+                    asp-route-pageSize="@Model.PageSize"
+                    asp-route-SearchText="@Model.SearchText"
+                    asp-route-sortExpression="@Model.SortExpression">
+
+                @pge
+                    </a>
+                }
+                else
+                {
+                    
+                    <span class="page-link">@pge</span>
+                }
+            </li>
+        }
+
+
+    </ul>
+
+
+
+</div>
+
+</div>
