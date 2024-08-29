@@ -1,5 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using StockManagementSys.Models;
+using CodeByStudent.Tools;
+using SortOrder = CodeByStudent.Tools.SortOrder;
 
 namespace StockManagementSys.Interfaces
 {

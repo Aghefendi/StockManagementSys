@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using StockManagementSys.Data;
 using StockManagementSys.Interfaces;
 using StockManagementSys.Models;
+using CodeByStudent.Tools;
+using SortOrder = CodeByStudent.Tools.SortOrder;
 
 namespace StockManagementSys.Repositories
 {
