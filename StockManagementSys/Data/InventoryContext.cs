@@ -13,6 +13,8 @@ namespace StockManagementSys.Data
         }
 
         public DbSet<Unit> Units { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+
 
     }
 }

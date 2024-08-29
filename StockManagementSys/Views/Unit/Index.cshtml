@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Index";
     SortModel sortModel =(SortModel) ViewData["sortModel"];
+    int intSno = 0;
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -12,9 +13,24 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<div class="col-4 p-0 justify-content-end mt-1">
+    <form asp-action="index">
+
+        <span class="btn-group">
+            <input class="form-control" type="text" name="SearchText" value="@ViewBag.SearchText" placeholder="SearchText" />
+            <input class="p-1 m-lg-2 btn btn-sm btn-danger" style="border-radius:10px" type="submit"  value="SearchText"/>
+
+        </span>
+    </form>
+
+</div>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                Sno
+            </th>
             <th>
                 <i class="@sortModel.GetColumn("name").SortIcon" arial-hidden="true"></i>
                 <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("name").SortExpression"> 
@@ -32,7 +48,12 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+
+            intSno = intSno + 1;
+            <tr>
+                <td>
+                    @intSno
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>

@@ -5,6 +5,7 @@ using StockManagementSys.Interfaces;
 using StockManagementSys.Models;
 using CodeByStudent.Tools;
 using SortOrder = CodeByStudent.Tools.SortOrder;
+using static StockManagementSys.Models.Unit;
 
 namespace StockManagementSys.Repositories
 {
@@ -41,20 +42,20 @@ namespace StockManagementSys.Repositories
             return unit;
         }
 
-        public List<Unit> GetItems(string SortProperty , SortOrder sortOrder)
+        private List<Unit> DoSort(List<Unit> units,string SortProperty, SortOrder sortOrder)
         {
-            List<Unit> units = _context.Units.ToList();
+           
 
             if (SortProperty.ToLower() == "name")
             {
                 if (sortOrder == SortOrder.Ascending)
                 {
 
-                    units=units.OrderBy(x => x.Name).ToList();
+                    units = units.OrderBy(x => x.Name).ToList();
                 }
                 else
                 {
-                    units=units.OrderByDescending(x=> x.Name).ToList();
+                    units = units.OrderByDescending(x => x.Name).ToList();
                 }
 
 
@@ -71,6 +72,24 @@ namespace StockManagementSys.Repositories
                     units = units.OrderByDescending(d => d.Description).ToList();
                 }
             }
+            return units;
+
+        }
+
+        public List<Unit> GetItems(string SortProperty , SortOrder sortOrder , string SearchText="")
+        {
+            List<Unit> units=_context.Units.ToList();
+            if(SearchText!="")
+            {
+                units=_context.Units.Where(n=>n.Name.Contains(SearchText)||n.Description.Contains(SearchText)).ToList();
+
+            }
+            else
+            {
+                units = _context.Units.ToList();
+
+            }
+            units=DoSort(units,SortProperty, sortOrder);
             return units;
         }
 

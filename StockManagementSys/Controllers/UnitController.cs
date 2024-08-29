@@ -70,7 +70,7 @@ namespace StockManagementSys.Controllers
 
         }
 
-        public IActionResult Index(string sortExpression = "")
+        public IActionResult Index(string sortExpression = "",string SearchText="")
             {
 
                 SortModel sortModel =new SortModel();
@@ -79,11 +79,12 @@ namespace StockManagementSys.Controllers
             sortModel.ApplySort(sortExpression);
             ViewData["sortModel"] = sortModel;
 
+            
 
 
 
 
-                List<Unit> units = _unitRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder);  //_context.Units.ToList();
+                List<Unit> units = _unitRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder , SearchText );  //_context.Units.ToList();
                 return View(units);
             } 
        
