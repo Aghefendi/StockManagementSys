@@ -79,7 +79,7 @@ namespace StockManagementSys.Repositories
         public List<Unit> GetItems(string SortProperty , SortOrder sortOrder , string SearchText="")
         {
             List<Unit> units=_context.Units.ToList();
-            if(SearchText!="")
+            if(SearchText!="" && SearchText!=null)
             {
                 units=_context.Units.Where(n=>n.Name.Contains(SearchText)||n.Description.Contains(SearchText)).ToList();
 

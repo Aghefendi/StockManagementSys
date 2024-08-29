@@ -79,10 +79,7 @@ namespace StockManagementSys.Controllers
             sortModel.ApplySort(sortExpression);
             ViewData["sortModel"] = sortModel;
 
-            
-
-
-
+            ViewBag.SearchText = SearchText;
 
                 List<Unit> units = _unitRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder , SearchText );  //_context.Units.ToList();
                 return View(units);
