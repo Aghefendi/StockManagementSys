@@ -4,16 +4,22 @@ using StockManagementSys.Data;
 using StockManagementSys.Interfaces;
 using StockManagementSys.Repositories;
 using Microsoft.AspNetCore.Identity;
+using StockManagementSys;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IUnits, UnitRepository>();
 builder.Services.AddDbContext<InventoryContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<InventoryContext>();
 
-builder.Services.AddScoped<IUnits,UnitRepository>();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -36,5 +42,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 app.Run();
