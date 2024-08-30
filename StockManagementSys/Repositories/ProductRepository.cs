@@ -76,7 +76,7 @@ namespace StockManagementSys.Repositories
 
         public PaginatedList<Product> GetItems(string SortProperty, SortOrder sortOrder, string SearchText = "", int pageIndex = 1, int pageSize = 5)
         {
-            List<Product> product = _context.Products.ToList();
+            List<Product> product = _context.Products.Include(p=>p.Units).ToList();
             if (SearchText != "" && SearchText != null)
             {
                 product = _context.Products.Where(n => n.Name.Contains(SearchText) || n.Description.Contains(SearchText)).ToList();
@@ -94,7 +94,7 @@ namespace StockManagementSys.Repositories
 
         public Product GetItem(string code)
         {
-            Product item = _context.Products.Where(x => x.Code == code).FirstOrDefault();
+            Product item = _context.Products.Where(p => p.Code == code).FirstOrDefault();
             return item;
         }
     }

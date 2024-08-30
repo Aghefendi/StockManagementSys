@@ -12,6 +12,7 @@ namespace StockManagementSys.Models
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
+
         [Required]
         [StringLength(50)]
         public string Description { get; set; }
@@ -26,7 +27,7 @@ namespace StockManagementSys.Models
 
         [ForeignKey("Units")]
         public int UnitId { get; set; }
-        public   Unit Units { get; set; }
+        public virtual Unit Units { get; set; }
 
     }
 }

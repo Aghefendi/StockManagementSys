@@ -95,6 +95,7 @@ namespace StockManagementSys.Controllers
             ViewData["sortModel"] = sortModel;
 
             ViewBag.SearchText = SearchText;
+           
 
             PaginatedList<Product> products = _productRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder, SearchText, pg, pageSize);
             var pager = new PagerModel(products.TotalRecords, pg, pageSize);

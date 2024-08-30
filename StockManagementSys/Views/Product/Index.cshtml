@@ -127,7 +127,14 @@
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem =>item.Units.Name);
+                    @if (item.Units != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.Units.Name)
+                    }
+                    else
+                    {
+                        <span>Unit bilgisi bulunamadı</span>
+                    }
                     
                 </td>
                 <td>
