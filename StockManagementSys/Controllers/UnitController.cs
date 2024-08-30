@@ -24,7 +24,7 @@ namespace StockManagementSys.Controllers
             _unitRepo = unitrepo;
         }
 
-        private SortModel ApplySort(string sortExpression)
+        public SortModel ApplySort(string sortExpression)
 
 
         {
@@ -89,15 +89,20 @@ namespace StockManagementSys.Controllers
 
             ViewBag.SearchText = SearchText;
 
-                List<Unit> units = _unitRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder , SearchText );//_context.Units.ToList();
-            var pager = new PagerModel(units.Count, pg, pageSize);
+                List<Unit> units = _unitRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder , SearchText,pg,pageSize );
+            //_context.Units.ToList();
+            //var pager = new PagerModel(units.Count, pg, pageSize);
 
-            pager.SortExpression = sortExpression;
-            this.ViewBag.Pager = pager;
-            units=units.Skip((pg-1)*pageSize).Take(pageSize).ToList();
+            //pager.SortExpression = sortExpression;
+            //this.ViewBag.Pager = pager;
+            int totRecors=((PaginatedList<Unit>)units).TotalRecords;
 
-            
-            
+            //PaginatedList<Unit> reUnits = new PaginatedList<Unit>(units, pg, pageSize);
+          //  units=units.Skip((pg-1)*pageSize).Take(pageSize).ToList();
+
+            var pager=new PagerModel(totRecors ,pg, pageSize);
+            pager.SortExpression= sortExpression;
+            this.ViewBag.Pager= pager;
             return View(units);
             } 
        

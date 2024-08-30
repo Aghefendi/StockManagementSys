@@ -74,7 +74,7 @@ namespace StockManagementSys.Repositories
 
         }
 
-        public List<ProductProfile> GetItems(string SortProperty, SortOrder sortOrder, string SearchText = "")
+        public PaginatedList<ProductProfile> GetItems(string SortProperty, SortOrder sortOrder, string SearchText = "", int pageIndex = 1, int pageSize = 5)
         {
             List<ProductProfile> ProductProfiles = _context.ProductProfiles.ToList();
             if (SearchText != "" && SearchText != null)
@@ -88,7 +88,8 @@ namespace StockManagementSys.Repositories
 
             }
             ProductProfiles = DoSort(ProductProfiles, SortProperty, sortOrder);
-            return ProductProfiles;
+            PaginatedList<ProductProfile> reProductProfile = new PaginatedList<ProductProfile>(ProductProfiles, pageIndex, pageSize);
+            return reProductProfile;
         }
 
         public ProductProfile GetItem(int id)

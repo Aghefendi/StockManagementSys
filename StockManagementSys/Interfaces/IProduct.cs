@@ -6,7 +6,7 @@ namespace StockManagementSys.Interfaces
     public interface IProduct
     {
 
-        List<Product> GetItems(string SortProperty, SortOrder sortOrder, string SearchText = ""); //read all
+        PaginatedList<Product> GetItems(string SortProperty, SortOrder sortOrder, string SearchText = "", int pageIndex = 1, int pageSize = 5); //read all
         Product GetItem(string Code);
         Product Create(Product item);
         Product Edit(Product item);

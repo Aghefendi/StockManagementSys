@@ -96,15 +96,11 @@ namespace StockManagementSys.Controllers
 
             ViewBag.SearchText = SearchText;
 
-            List<Product> products = _productRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder, SearchText);//_context.Units.ToList();
-            var pager = new PagerModel(products.Count, pg, pageSize);
-
+            PaginatedList<Product> products = _productRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder, SearchText, pg, pageSize);
+            var pager = new PagerModel(products.TotalRecords, pg, pageSize);
             pager.SortExpression = sortExpression;
             this.ViewBag.Pager = pager;
-            products = products.Skip((pg - 1) * pageSize).Take(pageSize).ToList();
-
-
-
+            TempData["CurrentPage"] = pg;
             return View(products);
         }
 
@@ -200,7 +196,7 @@ namespace StockManagementSys.Controllers
 
             var IsUnits=new List<SelectListItem>();
 
-            List<Unit> units = _unitRepo.GetItems("Name", SortOrder.Ascending);
+            PaginatedList<Unit> units = _unitRepo.GetItems("Name", SortOrder.Ascending);
            IsUnits=units.Select(ut=>new SelectListItem()
            {
              Value=ut.Id.ToString(),

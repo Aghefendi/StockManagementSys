@@ -88,15 +88,12 @@ namespace StockManagementSys.Controllers
 
             ViewBag.SearchText = SearchText;
 
-            List<ProductProfile> items = _productProfile.GetItems(sortModel.SortProperty, sortModel.SortOrder, SearchText);//_context.Units.ToList();
-            var pager = new PagerModel(items.Count, pg, pageSize);
+            List<ProductProfile> items = _productProfile.GetItems(sortModel.SortProperty, sortModel.SortOrder, SearchText,pg,pageSize);//_context.Units.ToList();
+            int totRecors = ((PaginatedList<ProductProfile>)items).TotalRecords;
 
+            var pager = new PagerModel(totRecors, pg, pageSize);
             pager.SortExpression = sortExpression;
             this.ViewBag.Pager = pager;
-            items = items.Skip((pg - 1) * pageSize).Take(pageSize).ToList();
-
-
-
             return View(items);
         }
 

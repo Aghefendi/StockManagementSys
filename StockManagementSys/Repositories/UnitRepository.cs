@@ -76,7 +76,7 @@ namespace StockManagementSys.Repositories
 
         }
 
-        public List<Unit> GetItems(string SortProperty , SortOrder sortOrder , string SearchText="")
+        public PaginatedList<Unit> GetItems(string SortProperty , SortOrder sortOrder , string SearchText="",int pageIndex=1 , int pageSize=5)
         {
             List<Unit> units=_context.Units.ToList();
             if(SearchText!="" && SearchText!=null)
@@ -90,7 +90,9 @@ namespace StockManagementSys.Repositories
 
             }
             units=DoSort(units,SortProperty, sortOrder);
-            return units;
+
+            PaginatedList<Unit> reUnits = new PaginatedList<Unit>(units, pageIndex, pageSize);
+            return reUnits;
         }
 
         public Unit GetUnit(int id)

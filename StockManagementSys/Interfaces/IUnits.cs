@@ -7,7 +7,7 @@ namespace StockManagementSys.Interfaces
 {
     public interface IUnits
     {
-        List<Unit> GetItems(string SortProperty , SortOrder sortOrder , string SearchText=""); //read all
+        PaginatedList<Unit> GetItems(string SortProperty , SortOrder sortOrder , string SearchText="", int pageIndex = 1, int pageSize = 5); //read all
         Unit GetUnit(int id);
         Unit Create(Unit unit);
         Unit Edit(Unit unit);   

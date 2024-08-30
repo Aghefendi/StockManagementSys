@@ -23,9 +23,10 @@ namespace StockManagementSys.Models
         [Column(TypeName = "smallmoney")]
         public decimal Price { get; set; }
         [Required]
+
         [ForeignKey("Units")]
         public int UnitId { get; set; }
-        public  Unit Units { get; set; }
+        public   Unit Units { get; set; }
 
     }
 }

@@ -6,7 +6,7 @@ namespace StockManagementSys.Interfaces
     public interface ICategory
     {
 
-        List<Category> GetItems(string SortProperty, SortOrder sortOrder, string SearchText = ""); //read all
+        PaginatedList<Category> GetItems(string SortProperty, SortOrder sortOrder, string SearchText = "", int pageIndex = 1, int pageSize = 5); //read all
         Category GetItem(int id);
         Category Create(Category category);
         Category Edit(Category category);
