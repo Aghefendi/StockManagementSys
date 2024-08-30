@@ -31,17 +31,26 @@
 
                         @if (SignInManager.IsSignedIn(User))
                         {
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Unit" asp-action="Index">Unit</a>
+                            <li class="dropdown nav-item pr-2">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="mastersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Masters
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="mastersDropdown">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Unit" asp-action="Index">Unit</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Brand" asp-action="Index">Brands</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="ProductProfile" asp-action="Index">ProductProfiles</a>
+                                    </li>
+                                </ul>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Brand" asp-action="Index">Brands</a>
-                            </li>
                         }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

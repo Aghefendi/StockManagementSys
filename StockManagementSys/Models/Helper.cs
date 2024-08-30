@@ -9,8 +9,8 @@
             string reString = "";
             try
             {
-                int lastIndex= fullTypeName.IndexOf('.')+1;
-                reString = fullTypeName.Substring(lastIndex,fullTypeName.Length+lastIndex);
+                int lastIndex= fullTypeName.LastIndexOf('.') +1 ;
+                reString = fullTypeName.Substring(lastIndex,fullTypeName.Length-lastIndex);
             }
             catch 
             {
