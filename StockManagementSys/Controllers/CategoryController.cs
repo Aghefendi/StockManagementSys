@@ -15,15 +15,14 @@ using SortOrder = CodeByStudent.Tools.SortOrder;
 namespace StockManagementSys.Controllers
 {
     [Authorize]
-    public class UnitController : Controller
+    public class CategoryController : Controller
     {
-        private IUnits _unitRepo;
-        public UnitController(IUnits unitrepo)
+        private ICategory _categoryrepo;
+        public CategoryController(ICategory categoryrepo)
         {
 
-            _unitRepo = unitrepo;
+            _categoryrepo = categoryrepo;
         }
-
         private SortModel ApplySort(string sortExpression)
 
 
@@ -78,10 +77,10 @@ namespace StockManagementSys.Controllers
 
         }
 
-        public IActionResult Index(string sortExpression = "",string SearchText="", int pg=1, int pageSize=5)
-            {
+        public IActionResult Index(string sortExpression = "", string SearchText = "", int pg = 1, int pageSize = 5)
+        {
 
-                SortModel sortModel =new SortModel();
+            SortModel sortModel = new SortModel();
             sortModel.AddColumn("name");
             sortModel.AddColumn("description");
             sortModel.ApplySort(sortExpression);
@@ -89,65 +88,66 @@ namespace StockManagementSys.Controllers
 
             ViewBag.SearchText = SearchText;
 
-                List<Unit> units = _unitRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder , SearchText );//_context.Units.ToList();
-            var pager = new PagerModel(units.Count, pg, pageSize);
+            List<Category> items = _categoryrepo.GetItems(sortModel.SortProperty, sortModel.SortOrder, SearchText);//_context.Units.ToList();
+            var pager = new PagerModel(items.Count, pg, pageSize);
 
             pager.SortExpression = sortExpression;
             this.ViewBag.Pager = pager;
-            units=units.Skip((pg-1)*pageSize).Take(pageSize).ToList();
+            items = items.Skip((pg - 1) * pageSize).Take(pageSize).ToList();
 
-            
-            
-            return View(units);
-            } 
-       
+
+
+            return View(items);
+        }
+
         
+
         public IActionResult Create()
         {
-            Unit unit = new Unit();
+            Category category = new Category();
 
-            return View(unit);
+            return View(category);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Unit unit)
+        public IActionResult Create(Category category)
         {
 
 
             try
             {
-               unit= _unitRepo.Create(unit);
+                category = _categoryrepo.Create(category);
 
             }
-            catch 
+            catch
             {
 
-                
+
             }
 
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Details(int id)
         {
-            Unit unit = _unitRepo.GetUnit(id);
-            return View(unit);
+            Category category = _categoryrepo.GetItem(id);
+            return View(category);
 
         }
         public IActionResult Edit(int id)
         {
-            Unit unit = _unitRepo.GetUnit(id);
-            return View(unit);
+            Category category = _categoryrepo.GetItem(id);
+            return View(category);
 
         }
 
         [HttpPost]
-        public IActionResult Edit(Unit unit)
+        public IActionResult Edit(Category category)
         {
 
 
             try
             {
-                unit= _unitRepo.Edit(unit);
+                category = _categoryrepo.Edit(category);
 
 
             }
@@ -162,20 +162,20 @@ namespace StockManagementSys.Controllers
 
         public IActionResult Delete(int Id)
         {
-            Unit unit = _unitRepo.GetUnit(Id);
-            return View(unit);
+            Category category = _categoryrepo.GetItem(Id);
+            return View(category);
 
         }
 
         [HttpPost]
-        public IActionResult Delete(Unit unit)
+        public IActionResult Delete(Category category)
         {
 
 
             try
             {
-               
-                unit=_unitRepo.Delete(unit);
+
+                category = _categoryrepo.Delete(category);
 
             }
             catch
@@ -186,7 +186,7 @@ namespace StockManagementSys.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-     
-      
+
+
     }
 }

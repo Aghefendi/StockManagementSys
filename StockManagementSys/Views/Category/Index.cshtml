@@ -1,8 +1,10 @@
 ﻿@using CodeByStudent.Tools
-@model IEnumerable<StockManagementSys.Models.Unit>
+@model IEnumerable<StockManagementSys.Models.Category>
 
 @{
-    ViewData["Title"] = "Index";
+    string currentModel = Helper.GetTypeName(Model.GetType().ToString());
+
+    ViewData["Title"] = currentModel + " - Index";
     SortModel sortModel =(SortModel) ViewData["sortModel"];
 
     PagerModel pager = ViewBag.Pager;

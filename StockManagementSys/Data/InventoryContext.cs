@@ -16,6 +16,11 @@ namespace StockManagementSys.Data
         public DbSet<Unit> Units { get; set; }
         public DbSet<Brand> Brands { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductGroup> ProductGroups { get; set; }
+        public DbSet<ProductProfile> ProductProfiles { get; set; }
+       
+
 
     }
 }
