@@ -16,3 +16,64 @@ html {
 body {
   margin-bottom: 60px;
 }
+.CenterContainer{
+
+
+    position:absolute;
+    transform:translate(-50%,-50%);
+    top:50%;
+    left:50%;
+}
+.CenterContainer form{
+    background:linear-gradient(to left,#28347d,#19767D);
+    padding:3em;
+    border-radius:20px;
+
+
+}
+.CenterContainer form a{
+
+
+    text-decoration:none;
+    color:white;
+    font-size:15px;
+}
+
+.CenterContainer form a:hover{
+    text-shadow:2px 2px #000040;
+
+
+}
+
+.CenterContainer form input{
+    border-radius:20px;
+
+
+
+}
+.CenterContainer form .btn{
+
+
+    width:150px;
+    font-size:1em;
+}
+.CenterContainer form:hover{
+
+
+    margin:8px;
+}
+.CenterContainer a,input:focus,submit:focus,button:focus{
+
+
+    outline:none;
+}
+.indexDiv{
+
+
+    position:fixed;
+    background:linear-gradient(to right,#C4E0E0,#C4E0E9);
+    top:%8;
+    left:0;
+    min-height:85%;
+    min-width:100%;
+}

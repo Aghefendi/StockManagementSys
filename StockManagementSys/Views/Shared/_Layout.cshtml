@@ -14,11 +14,16 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/StockManagementSys.styles.css" asp-append-version="true" />
 </head>
+@{
+
+    string menuTextColor = "text-white";
+}
 <body>
+    <div class="container-fluid" style="background:linear-gradient(to right,#283408,#197695);">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Stock Management</a>
+                <a class="navbar-brand @menuTextColor"  asp-area="" asp-controller="Home" asp-action="Index">Stock Management</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,37 +31,40 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link @menuTextColor" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="dropdown nav-item pr-2">
-                                <a class="nav-link dropdown-toggle text-dark" href="#" id="mastersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle @menuTextColor" href="#" id="mastersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Masters
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="mastersDropdown">
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Unit" asp-action="Index">Unit</a>
+                                        <a class="nav-link"  asp-area="" asp-controller="Unit" asp-action="Index">Units</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Brand" asp-action="Index">Brands</a>
+                                        <a class="nav-link " asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="ProductProfile" asp-action="Index">Product Profile</a>
+                                        <a class="nav-link " asp-area="" asp-controller="Brand" asp-action="Index">Brands</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="ProductGroup" asp-action="Index">Product Group</a>
+                                        <a class="nav-link " asp-area="" asp-controller="ProductProfile" asp-action="Index">Product Profile</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " asp-area="" asp-controller="ProductGroup" asp-action="Index">Product Group</a>
                                     </li>
                                 </ul>
                             </li>
 
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link @menuTextColor" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
 
@@ -65,15 +73,17 @@
             </div>
         </nav>
     </header>
+
+    </div>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - StockManagementSys - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer text-muted" style="background:linear-gradient(to left,#28340B,#197696);">
+        <div class="container @menuTextColor">
+            &copy; 2024 - StockManager - <a class="@menuTextColor" asp-area="" asp-controller="Home" asp-action="Privacy" >Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
