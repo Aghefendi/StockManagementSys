@@ -22,4 +22,8 @@
     <ProjectReference Include="..\CodeByStudent\Tools\Tools.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>

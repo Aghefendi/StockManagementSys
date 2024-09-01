@@ -25,7 +25,7 @@ namespace StockManagementSys.Repositories
 
         public Product Delete(Product item)
         {
-
+           item = pGetItem(item.Code);
             _context.Products.Attach(item);
             _context.Entry(item).State = EntityState.Deleted;
             _context.SaveChanges();
@@ -76,26 +76,38 @@ namespace StockManagementSys.Repositories
 
         public PaginatedList<Product> GetItems(string SortProperty, SortOrder sortOrder, string SearchText = "", int pageIndex = 1, int pageSize = 5)
         {
-            List<Product> product = _context.Products.Include(p=>p.Units).ToList();
+            List<Product> items;
             if (SearchText != "" && SearchText != null)
             {
-                product = _context.Products.Where(n => n.Name.Contains(SearchText) || n.Description.Contains(SearchText)).ToList();
+                items = _context.Products.Where(n => n.Name.Contains(SearchText) || n.Description.Contains(SearchText))
+                    .Include(x => x.Units)
+                    .ToList();
 
             }
             else
             {
-                product = _context.Products.ToList();
+                items = _context.Products.Include(u=>u.Units).ToList();
 
             }
-            product = DoSort(product, SortProperty, sortOrder);
-            PaginatedList<Product> reProduct = new PaginatedList<Product>(product, pageIndex, pageSize);
+            items = DoSort(items, SortProperty, sortOrder);
+            PaginatedList<Product> reProduct = new PaginatedList<Product>(items, pageIndex, pageSize);
             return reProduct;
         }
 
         public Product GetItem(string code)
         {
-            Product item = _context.Products.Where(p => p.Code == code).FirstOrDefault();
-            return item;
+            Product items = _context.Products.Where(u => u.Code == code)
+                   .Include(x => x.Units)
+                   .FirstOrDefault();
+            return items;
+        }
+
+        public Product pGetItem(string code)
+        {
+            Product items = _context.Products.Where(u => u.Code == code)
+                   
+                   .FirstOrDefault();
+            return items;
         }
     }
 }

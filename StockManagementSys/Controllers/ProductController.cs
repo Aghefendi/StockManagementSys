@@ -17,14 +17,28 @@ namespace StockManagementSys.Controllers
 {
     [Authorize]
     public class ProductController : Controller
+
     {
+        private readonly IWebHostEnvironment _webHost;
+        private readonly IBrand _brandRepo;
+        private readonly ICategory _categoryRepo;
+        private readonly IProductGroup _productGroupRepo;
+        private readonly IProductProfile _productProfileRepo;
+   
+
         private readonly IUnits _unitRepo;
         private readonly IProduct _productRepo;
-        public ProductController(IProduct productrepo, IUnits unitRepo)
+        public ProductController(IProduct productrepo, IUnits unitRepo,IBrand brandRepo,ICategory categoryRepo, IProductGroup productGroupRepo,IProductProfile productProfileGroup,IWebHostEnvironment webHost)
         {
+
 
             _productRepo = productrepo;
             _unitRepo = unitRepo;
+            _brandRepo = brandRepo;
+            _categoryRepo = categoryRepo;
+            _productGroupRepo = productGroupRepo;
+            _productProfileRepo = productProfileGroup;
+            _webHost = webHost;
         }
 
         private SortModel ApplySort(string sortExpression)
@@ -110,6 +124,11 @@ namespace StockManagementSys.Controllers
         {
             Product product = new Product();
             ViewBag.Units = GetUnits();
+            ViewBag.Brands= GetBrands();
+            ViewBag.Categories= GetCategories();
+            ViewBag.ProductProfiles = GetProductProfiles();
+            ViewBag.ProductGroups= GetProductGroups();
+
 
             return View(product);
         }
@@ -121,6 +140,8 @@ namespace StockManagementSys.Controllers
 
             try
             {
+                string uniqueFileName = GetUploadedFileName(product);
+                product.PhotoUrl = uniqueFileName;
                 product = _productRepo.Create(product);
 
             }
@@ -141,6 +162,12 @@ namespace StockManagementSys.Controllers
         public IActionResult Edit(string id)
         {
             Product product = _productRepo.GetItem(id);
+            ViewBag.Units=GetUnits();
+            ViewBag.Brands = GetBrands();
+            ViewBag.Categories = GetCategories();
+            ViewBag.ProductProfiles = GetProductProfiles();
+            ViewBag.ProductGroups = GetProductGroups();
+            TempData.Keep();
             return View(product);
 
         }
@@ -219,6 +246,141 @@ namespace StockManagementSys.Controllers
 
             return IsUnits;
         }
+
+        private List<SelectListItem> GetBrands()
+        {
+
+            var IsItem = new List<SelectListItem>();
+
+            PaginatedList<Brand> items = _brandRepo.GetItems("Name", SortOrder.Ascending);
+            IsItem = items.Select(ut => new SelectListItem()
+            {
+                Value = ut.Id.ToString(),
+                Text = ut.Name
+
+
+            }).ToList();
+
+            var defItem = new SelectListItem()
+            {
+                Value = "",
+                Text = "----Select Brand----"
+
+
+            };
+
+            IsItem.Insert(0, defItem);
+
+
+            return IsItem;
+        }
+
+        private List<SelectListItem> GetCategories()
+        {
+
+            var IsItem = new List<SelectListItem>();
+
+            PaginatedList<Category> items = _categoryRepo.GetItems("Name", SortOrder.Ascending);
+            IsItem = items.Select(ut => new SelectListItem()
+            {
+                Value = ut.Id.ToString(),
+                Text = ut.Name
+
+
+            }).ToList();
+
+            var defItem = new SelectListItem()
+            {
+                Value = "",
+                Text = "----Select Category----"
+
+
+            };
+
+            IsItem.Insert(0, defItem);
+
+
+            return IsItem;
+        }
+
+        private List<SelectListItem> GetProductGroups()
+        {
+
+            var IsItem = new List<SelectListItem>();
+
+            PaginatedList<ProductGroup> items = _productGroupRepo.GetItems("Name", SortOrder.Ascending);
+            IsItem = items.Select(ut => new SelectListItem()
+            {
+                Value = ut.Id.ToString(),
+                Text = ut.Name
+
+
+            }).ToList();
+
+            var defItem = new SelectListItem()
+            {
+                Value = "",
+                Text = "----Select Product Profile----"
+
+
+            };
+
+            IsItem.Insert(0, defItem);
+
+
+            return IsItem;
+        }
+
+        private List<SelectListItem> GetProductProfiles()
+        {
+
+            var IsItem = new List<SelectListItem>();
+
+            PaginatedList<ProductProfile> items = _productProfileRepo.GetItems("Name", SortOrder.Ascending);
+            IsItem = items.Select(ut => new SelectListItem()
+            {
+                Value = ut.Id.ToString(),
+                Text = ut.Name
+
+
+            }).ToList();
+
+            var defItem = new SelectListItem()
+            {
+                Value = "",
+                Text = "----Select Product Groups----"
+
+
+            };
+
+            IsItem.Insert(0, defItem);
+
+
+            return IsItem;
+        }
+
+        private string GetUploadedFileName(Product product) {
+            string uniqueFileName = null;
+            if(product.ProductPhoto != null)
+            {
+                string uploadsFile = Path.Combine(_webHost.WebRootPath, "images");
+                uniqueFileName=Guid.NewGuid().ToString()+"_"+product.ProductPhoto.FileName;
+                string filePath = Path.Combine(uploadsFile, uniqueFileName);
+                using(var fileStream=new FileStream(filePath, FileMode.Create))
+                {
+
+                    product.ProductPhoto.CopyTo(fileStream);
+                }
+
+
+
+            }
+            return uniqueFileName;
+        
+        
+        
+        }
+       
 
 
     }

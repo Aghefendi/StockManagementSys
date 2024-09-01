@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StockManagementSys.Data;
 
@@ -11,9 +12,11 @@ using StockManagementSys.Data;
 namespace StockManagementSys.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    partial class InventoryContextModelSnapshot : ModelSnapshot
+    [Migration("20240901064816_AddingBrandIdtoProduct")]
+    partial class AddingBrandIdtoProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -297,20 +300,8 @@ namespace StockManagementSys.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("PhotoUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("smallmoney");
-
-                    b.Property<int?>("ProductGroupId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductProfileId")
-                        .IsRequired()
-                        .HasColumnType("int");
 
                     b.Property<int>("UnitId")
                         .HasColumnType("int");
@@ -320,10 +311,6 @@ namespace StockManagementSys.Migrations
                     b.HasIndex("BrandId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProductGroupId");
-
-                    b.HasIndex("ProductProfileId");
 
                     b.HasIndex("UnitId");
 
@@ -464,18 +451,6 @@ namespace StockManagementSys.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StockManagementSys.Models.ProductGroup", "ProductGroups")
-                        .WithMany()
-                        .HasForeignKey("ProductGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StockManagementSys.Models.ProductProfile", "ProductProfiles")
-                        .WithMany()
-                        .HasForeignKey("ProductProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("StockManagementSys.Models.Unit", "Units")
                         .WithMany()
                         .HasForeignKey("UnitId")
@@ -485,10 +460,6 @@ namespace StockManagementSys.Migrations
                     b.Navigation("Brands");
 
                     b.Navigation("Categories");
-
-                    b.Navigation("ProductGroups");
-
-                    b.Navigation("ProductProfiles");
 
                     b.Navigation("Units");
                 });
