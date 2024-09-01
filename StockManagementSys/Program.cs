@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUnits, UnitRepository>();
 builder.Services.AddScoped<ICategory, CategoryRepository>();
+builder.Services.AddScoped<ISupplier, SupplierRepository>();
 builder.Services.AddScoped<IBrand, BrandRepository>();
 builder.Services.AddScoped<IProductProfile, ProductProfileRepository>();
 builder.Services.AddScoped<IProductGroup, ProductGroupRepository>();

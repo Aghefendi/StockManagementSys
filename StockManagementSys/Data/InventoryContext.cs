@@ -21,8 +21,10 @@ namespace StockManagementSys.Data
         public DbSet<ProductProfile> ProductProfiles { get; set; }
 
         public DbSet<Product> Products { get; set; }
-       
 
+       public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<PoHeader> PoHeaders { get; set; }
+        public DbSet<PoDetail> PoDetails { get; set; }
 
     }
 }

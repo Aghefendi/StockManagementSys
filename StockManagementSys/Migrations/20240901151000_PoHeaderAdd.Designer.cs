@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StockManagementSys.Data;
 
@@ -11,9 +12,11 @@ using StockManagementSys.Data;
 namespace StockManagementSys.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    partial class InventoryContextModelSnapshot : ModelSnapshot
+    [Migration("20240901151000_PoHeaderAdd")]
+    partial class PoHeaderAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,37 +271,6 @@ namespace StockManagementSys.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("StockManagementSys.Models.PoDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("PoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductCode")
-                        .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
-
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("smallmoney");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PoId");
-
-                    b.HasIndex("ProductCode");
-
-                    b.ToTable("PoDetails");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.PoHeader", b =>
@@ -561,25 +533,6 @@ namespace StockManagementSys.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("StockManagementSys.Models.PoDetail", b =>
-                {
-                    b.HasOne("StockManagementSys.Models.PoHeader", "PoHeader")
-                        .WithMany()
-                        .HasForeignKey("PoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StockManagementSys.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PoHeader");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.PoHeader", b =>
