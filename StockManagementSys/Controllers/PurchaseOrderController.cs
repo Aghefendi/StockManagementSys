@@ -1,5 +1,5 @@
 ﻿using CodeByStudent.Tools;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StockManagementSys.Interfaces;
@@ -7,16 +7,19 @@ using StockManagementSys.Models;
 
 namespace StockManagementSys.Controllers
 {
-    [Authorize]
-    public class SupplierController : Controller
+    public class PurchaseOrderController:Controller
     {
 
 
-        private ISupplier _supprepo;
-        public SupplierController(ISupplier supprepo)
+        private IPurchaseOrder _purchaserepo;
+        private IProduct _productrepo;
+        private ISupplier _supplierrepo;
+        public PurchaseOrderController(IPurchaseOrder purchaserepo, IProduct productrepo, ISupplier supplierrepo)
         {
 
-            _supprepo = supprepo;
+            _purchaserepo = purchaserepo;
+            _productrepo = productrepo;
+            _supplierrepo = supplierrepo;
         }
         private SortModel ApplySort(string sortExpression)
 
@@ -83,12 +86,14 @@ namespace StockManagementSys.Controllers
 
             ViewBag.SearchText = SearchText;
 
-            List<Supplier> items = _supprepo.GetItems(sortModel.SortProperty, sortModel.SortOrder, SearchText, pg, pageSize);//_context.Units.ToList();
-            int totRecors = ((PaginatedList<Supplier>)items).TotalRecords;
+            PaginatedList<PoHeader> items = _purchaserepo.GetItems(sortModel.SortProperty, sortModel.SortOrder, SearchText, pg, pageSize);//_context.Units.ToList();
+            int totRecors = ((PaginatedList<PoHeader>)items).TotalRecords;
 
             var pager = new PagerModel(totRecors, pg, pageSize);
             pager.SortExpression = sortExpression;
             this.ViewBag.Pager = pager;
+            TempData["CurrentPage"] = pg;
+
             return View(items);
         }
 
@@ -96,24 +101,30 @@ namespace StockManagementSys.Controllers
 
         public IActionResult Create()
         {
-            Supplier Brand = new Supplier();
+            PoHeader items = new PoHeader();
+            items.PoDetails.Add(new PoDetail()
+            {
 
-            return View(Brand);
+                Id = 1,
+            });
+            ViewBag.ProductList = GetProduct();
+            ViewBag.SupplierList = GetSupplier();   
+
+            return View(items);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Supplier Brand)
+        public IActionResult Create(PoHeader poheader)
         {
-
-
+            bool bolret = false;
             try
             {
-                Brand = _supprepo.Create(Brand);
+                bolret = _purchaserepo.Create(poheader);
 
             }
             catch
             {
-
+                
 
             }
 
@@ -121,25 +132,25 @@ namespace StockManagementSys.Controllers
         }
         public IActionResult Details(int id)
         {
-            Supplier Brand = _supprepo.GetItem(id);
-            return View(Brand);
+            PoHeader item = _purchaserepo.GetItem(id);
+            return View(item);
 
         }
         public IActionResult Edit(int id)
         {
-            Supplier Brand = _supprepo.GetItem(id);
-            return View(Brand);
+            PoHeader item = _purchaserepo.GetItem(id);
+            return View(item);
 
         }
 
         [HttpPost]
-        public IActionResult Edit(Supplier Brand)
+        public IActionResult Edit(PoHeader poHeader)
         {
-
+            bool retVal = false;
 
             try
             {
-                Brand = _supprepo.Edit(Brand);
+                retVal = _purchaserepo.Edit(poHeader);
 
 
             }
@@ -154,20 +165,20 @@ namespace StockManagementSys.Controllers
 
         public IActionResult Delete(int Id)
         {
-            Supplier Brand = _supprepo.GetItem(Id);
-            return View(Brand);
+            PoHeader item =_purchaserepo.GetItem(Id);
+            return View(item);
 
         }
 
         [HttpPost]
-        public IActionResult Delete(Supplier Brand)
+        public IActionResult Delete(PoHeader item)
         {
-
+            bool boolval = false;
 
             try
             {
 
-                Brand = _supprepo.Delete(Brand);
+                boolval = _purchaserepo.Delete(item);
 
             }
             catch
@@ -178,5 +189,54 @@ namespace StockManagementSys.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        private List<SelectListItem> GetProduct()
+        {
+
+            var lsProduct = new List<SelectListItem>();
+
+            PaginatedList<Product> units = _productrepo.GetItems("Name", SortOrder.Ascending);
+            lsProduct = units.Select(ut => new SelectListItem()
+            {
+                Value = ut.Code.ToString(),
+                Text = ut.Name
+
+
+            }).ToList();
+
+            var defItem = new SelectListItem()
+            {
+                Value = "",
+                Text = "----Select Unit----"
+
+
+            };
+                return lsProduct;
+        }
+
+        private List<SelectListItem> GetSupplier()
+        {
+
+            var lssupplier = new List<SelectListItem>();
+
+            PaginatedList<Supplier> units = _supplierrepo.GetItems("Name", SortOrder.Ascending);
+            lssupplier = units.Select(ut => new SelectListItem()
+            {
+                Value = ut.Code.ToString(),
+                Text = ut.FullName
+
+
+            }).ToList();
+
+            var defItem = new SelectListItem()
+            {
+                Value = "",
+                Text = "----Select Unit----"
+
+
+            };
+            return lssupplier;
+        }
+
     }
 }

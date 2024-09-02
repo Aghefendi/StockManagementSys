@@ -34,5 +34,7 @@ namespace StockManagementSys.Models
         [MaxLength(500)]
         public string Remarks { get; set; }
 
+        public virtual List<PoDetail> PoDetails { get; set; }=new List<PoDetail>();
+
     }
 }
