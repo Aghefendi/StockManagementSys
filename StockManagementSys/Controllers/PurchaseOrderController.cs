@@ -1,4 +1,5 @@
 ﻿using CodeByStudent.Tools;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,6 +8,7 @@ using StockManagementSys.Models;
 
 namespace StockManagementSys.Controllers
 {
+    [Authorize]
     public class PurchaseOrderController:Controller
     {
 
@@ -222,7 +224,7 @@ namespace StockManagementSys.Controllers
             PaginatedList<Supplier> units = _supplierrepo.GetItems("Name", SortOrder.Ascending);
             lssupplier = units.Select(ut => new SelectListItem()
             {
-                Value = ut.Code.ToString(),
+                Value = ut.Id.ToString(),
                 Text = ut.FullName
 
 
@@ -231,7 +233,7 @@ namespace StockManagementSys.Controllers
             var defItem = new SelectListItem()
             {
                 Value = "",
-                Text = "----Select Unit----"
+                Text = "----Select Supplier----"
 
 
             };

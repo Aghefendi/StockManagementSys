@@ -14,7 +14,7 @@ namespace StockManagementSys.Models
         [Required]
 
         [DataType(DataType.Date)]
-        public DateTime PoDate { get; set; }
+        public DateTime PoDate { get; set; }=DateTime.Now;
         [Required]
         [ForeignKey("SupplierId")]
         public int SupplierId { get; set; }
@@ -24,7 +24,7 @@ namespace StockManagementSys.Models
         public string QuotationNo { get; set; }
         [Required]
         [DataType(DataType.Date)]
-        public DateTime QuotationDate { get; set; }
+        public DateTime QuotationDate { get; set; }= DateTime.Now;  
 
         [Required]
         [MaxLength(500)]
