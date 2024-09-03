@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using StockManagementSys.Models.StockManagementSys.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StockManagementSys.Models
@@ -11,6 +12,8 @@ namespace StockManagementSys.Models
         [ForeignKey("PoHeader")]
         public int PoId { get; set; }
         public virtual PoHeader PoHeader { get; private set; }
+
+       
 
         [Required]
         [ForeignKey("Product")]

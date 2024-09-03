@@ -1,0 +1,119 @@
+﻿using CodeByStudent.Tools;
+using Microsoft.EntityFrameworkCore;
+using StockManagementSys.Data;
+using StockManagementSys.Interfaces;
+using StockManagementSys.Models;
+using StockManagementSys.Models.StockManagementSys.Models;
+
+namespace StockManagementSys.Repositories
+{
+    public class InwardRepository:Iinward
+    {
+       
+            private readonly InventoryContext _context;
+            public InwardRepository(InventoryContext context)
+            {
+                _context = context;
+            }
+
+            public bool Create(Inward items)
+            {
+                bool retVal = false;
+
+
+
+                try
+                {
+                    _context.Inwards.Add(items);
+                    _context.SaveChanges();
+                    retVal = true;
+
+                }
+                catch
+                {
+
+
+                }
+                return false;
+
+
+            }
+
+            public bool Delete(Inward items)
+            {
+                return false;
+            }
+
+            public bool Edit(Inward items)
+            {
+                return false;
+            }
+
+
+            private List<Inward> DoSort(List<Inward> items, string SortProperty, SortOrder sortOrder)
+            {
+
+
+                if (SortProperty.ToLower() == "inwardNumber")
+                {
+                    if (sortOrder == SortOrder.Ascending)
+                    {
+
+                        items = items.OrderBy(x => x.InwardNumber).ToList();
+                    }
+                    else
+                    {
+                        items = items.OrderByDescending(x => x.InwardNumber).ToList();
+                    }
+
+
+                }
+              
+                else
+                {
+                    if (sortOrder == SortOrder.Ascending)
+                    {
+                        items = items.OrderBy(d => d.InwardDate).ToList();
+
+                    }
+                    else
+                    {
+                        items = items.OrderByDescending(d => d.InwardDate).ToList();
+                    }
+
+
+                }
+                return items;
+
+            }
+
+            public Inward GetItem(int id)
+            {
+                Inward items = _context.Inwards.Where(x => x.Id == id).Include(y => y.PoDetails).FirstOrDefault();
+                return items;
+            }
+
+            public PaginatedList<Inward> GetItems(string SortProperty, SortOrder sortOrder, string SearchText = "", int pageIndex = 1, int pageSize = 5)
+            {
+                List<Inward> items;
+                if (SearchText != "" && SearchText != null)
+                {
+                    items = _context.Inwards.Where(n => n.InwardNumber.Contains(SearchText) || n.Remarks.Contains(SearchText))
+                            .Include(x => x.PoDetails)
+
+                            .ToList();
+
+                }
+                else
+                {
+                    items = _context.Inwards.Include(x => x.PoDetails).ToList();
+
+
+                }
+                items = DoSort(items, SortProperty, sortOrder);
+                PaginatedList<Inward> reProduct = new PaginatedList<Inward>(items, pageIndex, pageSize);
+                return reProduct;
+            }
+        }
+    }
+

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StockManagementSys.Data;
 
@@ -11,9 +12,11 @@ using StockManagementSys.Data;
 namespace StockManagementSys.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    partial class InventoryContextModelSnapshot : ModelSnapshot
+    [Migration("20240903081231_StockMagament2")]
+    partial class StockMagament2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -278,9 +281,6 @@ namespace StockManagementSys.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("InwardId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -296,8 +296,6 @@ namespace StockManagementSys.Migrations
                         .HasColumnType("smallmoney");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("InwardId");
 
                     b.HasIndex("PoId");
 
@@ -456,37 +454,6 @@ namespace StockManagementSys.Migrations
                     b.ToTable("ProductProfiles");
                 });
 
-            modelBuilder.Entity("StockManagementSys.Models.StockManagementSys.Models.Inward", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("InwardDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InwardNumber")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("Remarks")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SupplierId");
-
-                    b.ToTable("Inwards");
-                });
-
             modelBuilder.Entity("StockManagementSys.Models.Supplier", b =>
                 {
                     b.Property<int>("Id")
@@ -601,10 +568,6 @@ namespace StockManagementSys.Migrations
 
             modelBuilder.Entity("StockManagementSys.Models.PoDetail", b =>
                 {
-                    b.HasOne("StockManagementSys.Models.StockManagementSys.Models.Inward", null)
-                        .WithMany("PoDetails")
-                        .HasForeignKey("InwardId");
-
                     b.HasOne("StockManagementSys.Models.PoHeader", "PoHeader")
                         .WithMany("PoDetails")
                         .HasForeignKey("PoId")
@@ -676,23 +639,7 @@ namespace StockManagementSys.Migrations
                     b.Navigation("Units");
                 });
 
-            modelBuilder.Entity("StockManagementSys.Models.StockManagementSys.Models.Inward", b =>
-                {
-                    b.HasOne("StockManagementSys.Models.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Supplier");
-                });
-
             modelBuilder.Entity("StockManagementSys.Models.PoHeader", b =>
-                {
-                    b.Navigation("PoDetails");
-                });
-
-            modelBuilder.Entity("StockManagementSys.Models.StockManagementSys.Models.Inward", b =>
                 {
                     b.Navigation("PoDetails");
                 });

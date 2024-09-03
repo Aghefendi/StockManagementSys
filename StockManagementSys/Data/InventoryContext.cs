@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StockManagementSys.Models;
+using StockManagementSys.Models.StockManagementSys.Models;
 
 namespace StockManagementSys.Data
 {
@@ -25,6 +26,7 @@ namespace StockManagementSys.Data
        public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<PoHeader> PoHeaders { get; set; }
         public DbSet<PoDetail> PoDetails { get; set; }
+        public DbSet<Inward> Inwards { get; set; }  
 
     }
 }
