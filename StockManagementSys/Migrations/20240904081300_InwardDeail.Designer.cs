@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StockManagementSys.Data;
 
@@ -11,9 +12,11 @@ using StockManagementSys.Data;
 namespace StockManagementSys.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    partial class InventoryContextModelSnapshot : ModelSnapshot
+    [Migration("20240904081300_InwardDeail")]
+    partial class InwardDeail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,7 +247,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands", (string)null);
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Category", b =>
@@ -267,7 +270,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Inward", b =>
@@ -298,7 +301,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("Inwards", (string)null);
+                    b.ToTable("Inwards");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.InwardDetail", b =>
@@ -329,7 +332,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasIndex("ProductCode");
 
-                    b.ToTable("InwardDetail", (string)null);
+                    b.ToTable("InwardDetail");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.PoDetail", b =>
@@ -360,7 +363,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasIndex("ProductCode");
 
-                    b.ToTable("PoDetails", (string)null);
+                    b.ToTable("PoDetails");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.PoHeader", b =>
@@ -404,7 +407,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("PoHeaders", (string)null);
+                    b.ToTable("PoHeaders");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Product", b =>
@@ -464,7 +467,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasIndex("UnitId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.ProductGroup", b =>
@@ -487,7 +490,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductGroups", (string)null);
+                    b.ToTable("ProductGroups");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.ProductProfile", b =>
@@ -510,7 +513,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductProfiles", (string)null);
+                    b.ToTable("ProductProfiles");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Supplier", b =>
@@ -548,7 +551,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Suppliers", (string)null);
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Unit", b =>
@@ -571,7 +574,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Units", (string)null);
+                    b.ToTable("Units");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

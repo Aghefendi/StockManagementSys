@@ -15,10 +15,13 @@ builder.Services.AddScoped<IUnits, UnitRepository>();
 builder.Services.AddScoped<ICategory, CategoryRepository>();
 builder.Services.AddScoped<ISupplier, SupplierRepository>();
 builder.Services.AddScoped<IBrand, BrandRepository>();
+builder.Services.AddScoped<IInward, InwardRepository>();
 builder.Services.AddScoped<IProductProfile, ProductProfileRepository>();
 builder.Services.AddScoped<IProductGroup, ProductGroupRepository>();
 builder.Services.AddScoped<IProduct, ProductRepository>();
 builder.Services.AddScoped<IPurchaseOrder,PurchaseOrderRepo>();
+
+
 builder.Services.AddDbContext<InventoryContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)

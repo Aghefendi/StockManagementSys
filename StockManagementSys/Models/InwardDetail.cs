@@ -1,19 +1,20 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StockManagementSys.Models
 {
-    public class PoDetail
+    public class InwardDetail
+
     {
+
         [Key]
         public int Id { get; set; }
         [Required]
-        [ForeignKey("PoHeader")]
-        public int PoId { get; set; }
-        public virtual PoHeader PoHeader { get; private set; }
+        [ForeignKey("Inward")]
+        public int InwardId { get; set; }
+        public virtual Inward   Inward { get; private set; }
 
-       
+
 
         [Required]
         [ForeignKey("Product")]
@@ -21,7 +22,7 @@ namespace StockManagementSys.Models
         public string ProductCode { get; set; }
         public virtual Product Product { get; private set; }
 
-        [Column(TypeName="smallmoney")]
+        [Column(TypeName = "smallmoney")]
         [Required]
         public decimal Quantity { get; set; }
 
@@ -33,8 +34,7 @@ namespace StockManagementSys.Models
         [NotMapped]
         public string UnitName { get; set; } = "";
 
-        public bool IsDeleted { get; set; }=false;
-
+        public bool IsDeleted { get; set; } = false;
 
     }
 }
