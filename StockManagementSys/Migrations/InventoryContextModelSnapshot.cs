@@ -244,7 +244,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands", (string)null);
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Category", b =>
@@ -267,7 +267,35 @@ namespace StockManagementSys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("StockManagementSys.Models.ControlCheck", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("InwardDetalId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PoDetalId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("InwardDetalId");
+
+                    b.HasIndex("PoDetalId");
+
+                    b.ToTable("ControlChecks");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Inward", b =>
@@ -298,7 +326,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("Inwards", (string)null);
+                    b.ToTable("Inwards");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.InwardDetail", b =>
@@ -329,7 +357,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasIndex("ProductCode");
 
-                    b.ToTable("InwardDetail", (string)null);
+                    b.ToTable("InwardDetail");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.PoDetail", b =>
@@ -360,7 +388,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasIndex("ProductCode");
 
-                    b.ToTable("PoDetails", (string)null);
+                    b.ToTable("PoDetails");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.PoHeader", b =>
@@ -404,7 +432,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("PoHeaders", (string)null);
+                    b.ToTable("PoHeaders");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Product", b =>
@@ -464,7 +492,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasIndex("UnitId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.ProductGroup", b =>
@@ -487,7 +515,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductGroups", (string)null);
+                    b.ToTable("ProductGroups");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.ProductProfile", b =>
@@ -510,7 +538,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductProfiles", (string)null);
+                    b.ToTable("ProductProfiles");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Supplier", b =>
@@ -548,7 +576,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Suppliers", (string)null);
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Unit", b =>
@@ -571,7 +599,7 @@ namespace StockManagementSys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Units", (string)null);
+                    b.ToTable("Units");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -623,6 +651,25 @@ namespace StockManagementSys.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("StockManagementSys.Models.ControlCheck", b =>
+                {
+                    b.HasOne("StockManagementSys.Models.InwardDetail", "InwardDetail")
+                        .WithMany()
+                        .HasForeignKey("InwardDetalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StockManagementSys.Models.PoDetail", "PoDetail")
+                        .WithMany()
+                        .HasForeignKey("PoDetalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("InwardDetail");
+
+                    b.Navigation("PoDetail");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Inward", b =>

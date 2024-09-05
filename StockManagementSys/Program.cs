@@ -19,6 +19,7 @@ builder.Services.AddScoped<IInward, InwardRepository>();
 builder.Services.AddScoped<IProductProfile, ProductProfileRepository>();
 builder.Services.AddScoped<IProductGroup, ProductGroupRepository>();
 builder.Services.AddScoped<IProduct, ProductRepository>();
+builder.Services.AddScoped<IControlCheck, ControlCheckRepository>();
 builder.Services.AddScoped<IPurchaseOrder,PurchaseOrderRepo>();
 
 

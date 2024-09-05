@@ -7,18 +7,21 @@ namespace StockManagementSys.Models
     {
         [Key]
         public int id { get; set; }
-        [Required]
-        [ForeignKey("Inward")]
-
-        public int Inwardid { get; set; }
-        public virtual Inward Inward { get; set; }
 
         [Required]
-        [ForeignKey("PoHeader")]
+        [ForeignKey("InwardDetail")]
 
-        public int PoHeaderId { get; set; }
-        public virtual PoHeader PoHeader { get; set; }
+        public int? InwardDetalId { get; set; }
+        public virtual InwardDetail InwardDetail { get; private set; }
+
+        [Required]
+        [ForeignKey("PoDetail")]
+
+        public int? PoDetalId { get; set; }
+        public virtual PoDetail PoDetail { get; private set; }
 
         public int TotalQuantity { get; set; }
+
+     
     }
 }

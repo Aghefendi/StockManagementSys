@@ -12,8 +12,8 @@ using StockManagementSys.Data;
 namespace StockManagementSys.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    [Migration("20240904081300_InwardDeail")]
-    partial class InwardDeail
+    [Migration("20240905071046_AllDatabase")]
+    partial class AllDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -271,6 +271,34 @@ namespace StockManagementSys.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("StockManagementSys.Models.ControlCheck", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("InwardDetalId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PoDetalId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("InwardDetalId");
+
+                    b.HasIndex("PoDetalId");
+
+                    b.ToTable("ControlChecks");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Inward", b =>
@@ -626,6 +654,25 @@ namespace StockManagementSys.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("StockManagementSys.Models.ControlCheck", b =>
+                {
+                    b.HasOne("StockManagementSys.Models.InwardDetail", "InwardDetail")
+                        .WithMany()
+                        .HasForeignKey("InwardDetalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StockManagementSys.Models.PoDetail", "PoDetail")
+                        .WithMany()
+                        .HasForeignKey("PoDetalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("InwardDetail");
+
+                    b.Navigation("PoDetail");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Inward", b =>
