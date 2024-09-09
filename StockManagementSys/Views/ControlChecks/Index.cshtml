@@ -1,55 +1,35 @@
 ﻿@model IEnumerable<StockManagementSys.Models.ControlCheck>
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Index";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+
+<table>
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.InwardDetail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PoDetail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalQuantity)
-            </th>
-            <th></th>
+        <tr class="table">
+            <th> @Html.DisplayNameFor(model => model.InwardDetail.Product.Name)</th>
+            <th> @Html.DisplayNameFor(model => model.InwardDetail.Inward.InwardDate)</th>
+            <th> @Html.DisplayNameFor(model => model.InwardDetail.Quantity)</th>
+            <th> @Html.DisplayNameFor(model => model.PoDetail.PoHeader.PoDate)</th>
+            <th> @Html.DisplayNameFor(model => model.PoDetail.Quantity)</th>
+            <th> @Html.DisplayNameFor(model => model.TotalQuantity)</th>
+           
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.InwardDetail.ProductCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PoDetail.ProductCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalQuantity)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr class="table">
+                
+                <td>@(item.InwardDetail != null ? item.InwardDetail.Product.Name.ToString() : "N/A")</td>
+                <td>@(item.InwardDetail != null ? item.InwardDetail.Inward.InwardDate.ToString() : "N/A")</td>
+                <td>@(item.InwardDetail != null ? item.InwardDetail.Quantity.ToString() : "N/A")</td>
+                <td>@(item.PoDetail != null ? item.PoDetail.PoHeader.PoDate.ToString() : "N/A")</td>
+                <td>@(item.PoDetail != null ? item.PoDetail.Quantity.ToString() : "N/A")</td>
+                <th>@item.TotalQuantity</th>
+            </tr>
+        }
     </tbody>
 </table>
-</body>
-</html>

@@ -1,14 +1,10 @@
-﻿using CodeByStudent.Tools;
-using StockManagementSys.Models;
+﻿using StockManagementSys.Models;
 
 namespace StockManagementSys.Interfaces
 {
     public interface IControlCheck
     {
+      List<ControlCheck> GetAll();
 
-        PaginatedList<ControlCheck> GetItems(string SortProperty, SortOrder sortOrder, string SearchText = "", int pageIndex = 1, int pageSize = 5); //read all
-        ControlCheck GetItem(int id);
-        
-       
     }
 }

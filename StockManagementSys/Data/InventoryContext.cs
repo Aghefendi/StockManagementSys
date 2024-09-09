@@ -7,6 +7,9 @@ namespace StockManagementSys.Data
 {
     public class InventoryContext:IdentityDbContext
     {
+        public InventoryContext()
+        {
+        }
 
         public InventoryContext(DbContextOptions options):base(options) 
         { 
@@ -28,6 +31,7 @@ namespace StockManagementSys.Data
         public DbSet<PoDetail> PoDetails { get; set; }
         public DbSet<Inward> Inwards { get; set; }
       public DbSet<ControlCheck> ControlChecks { get; set; }
+      
 
     }
 }

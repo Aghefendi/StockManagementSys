@@ -12,13 +12,13 @@ namespace StockManagementSys.Models
         [ForeignKey("InwardDetail")]
 
         public int? InwardDetalId { get; set; }
-        public virtual InwardDetail InwardDetail { get; private set; }
+        public virtual InwardDetail InwardDetail { get;  set; }
 
         [Required]
         [ForeignKey("PoDetail")]
 
         public int? PoDetalId { get; set; }
-        public virtual PoDetail PoDetail { get; private set; }
+        public virtual PoDetail PoDetail { get;  set; }
 
         public int TotalQuantity { get; set; }
 
