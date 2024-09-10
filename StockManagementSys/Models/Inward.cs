@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.VisualBasic;
 
 namespace StockManagementSys.Models
 {
@@ -20,6 +21,7 @@ namespace StockManagementSys.Models
 
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime InwardDate { get; set; } = DateTime.Now;
 
         [Required]

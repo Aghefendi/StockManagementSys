@@ -1,19 +1,38 @@
-﻿@model IEnumerable<StockManagementSys.Models.PoHeader>
+﻿@using CodeByStudent.Tools
+@model IEnumerable<StockManagementSys.Models.PoHeader>
 
 @{
     ViewData["Title"] = "Index";
+    SortModel sortModel = (SortModel)ViewData["sortModel"];
+
+    PagerModel pager = ViewBag.Pager;
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<div class="row">
+    <div class="col-12">
+        <partial name="_topBar" model="@pager" />
+
+
+
+    </div>
+
+
+</div>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PoNumber)
+                <i class="@sortModel.GetColumn("ponumber").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("ponumber").SortExpression">
+                    @Html.DisplayNameFor(model => model.PoNumber)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PoDate)
@@ -22,7 +41,10 @@
                 @Html.DisplayNameFor(model => model.Supplier)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuotationNo)
+                <i class="@sortModel.GetColumn("quotationno").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("quotationno").SortExpression">
+                    @Html.DisplayNameFor(model => model.QuotationNo)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.QuotationDate)

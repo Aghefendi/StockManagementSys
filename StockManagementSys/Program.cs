@@ -14,10 +14,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUnits, UnitRepository>();
 builder.Services.AddScoped<ICategory, CategoryRepository>();
 builder.Services.AddScoped<ISupplier, SupplierRepository>();
-builder.Services.AddScoped<IBrand, BrandRepository>();
+
 builder.Services.AddScoped<IInward, InwardRepository>();
-builder.Services.AddScoped<IProductProfile, ProductProfileRepository>();
-builder.Services.AddScoped<IProductGroup, ProductGroupRepository>();
 builder.Services.AddScoped<IProduct, ProductRepository>();
 builder.Services.AddScoped<IControlCheck, ControlCheckRepository>();
 builder.Services.AddScoped<IPurchaseOrder,PurchaseOrderRepo>();

@@ -75,12 +75,7 @@
                     @Html.DisplayNameFor(model => model.Description)
                 </a>
             </th>
-            <th>
-                <i class="@sortModel.GetColumn("Cost").SortIcon" arial-hidden="true"></i>
-                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("Cost").SortExpression">
-                    @Html.DisplayNameFor(model => model.Cost)
-                </a>
-            </th>
+           
 
             <th>
                 <i class="@sortModel.GetColumn("Price").SortIcon" arial-hidden="true"></i>
@@ -119,9 +114,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cost)
-                </td>
+               
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>

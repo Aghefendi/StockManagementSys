@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CodeByStudent.Tools;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using StockManagementSys.Repositories;
 
 namespace StockManagementSys.Controllers
 {
+    [Authorize]
     public class ControlChecksController : Controller
     {
 
@@ -23,22 +25,13 @@ namespace StockManagementSys.Controllers
             _repo = repo;
         }
 
-        public IActionResult Index()
+        public IActionResult index()
         {
-
-
-            var cont = _repo.GetAll();
-
-
-
-            return View(cont);
+            var report=_repo.GetAll();
 
 
 
-
-
-
-
+            return View(report);
         }
     }
 }

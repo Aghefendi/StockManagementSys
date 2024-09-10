@@ -81,8 +81,8 @@ namespace StockManagementSys.Controllers
         {
 
             SortModel sortModel = new SortModel();
-            sortModel.AddColumn("name");
-            sortModel.AddColumn("description");
+            sortModel.AddColumn("Ponumber");
+            sortModel.AddColumn("quotationno");
             sortModel.ApplySort(sortExpression);
             ViewData["sortModel"] = sortModel;
 

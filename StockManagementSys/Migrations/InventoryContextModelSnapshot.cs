@@ -224,29 +224,6 @@ namespace StockManagementSys.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("StockManagementSys.Models.Brand", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Brands");
-                });
-
             modelBuilder.Entity("StockManagementSys.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -441,16 +418,9 @@ namespace StockManagementSys.Migrations
                         .HasMaxLength(6)
                         .HasColumnType("nvarchar(6)");
 
-                    b.Property<int?>("BrandId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
                     b.Property<int?>("CategoryId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("smallmoney");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -469,76 +439,16 @@ namespace StockManagementSys.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("smallmoney");
 
-                    b.Property<int?>("ProductGroupId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductProfileId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
                     b.Property<int>("UnitId")
                         .HasColumnType("int");
 
                     b.HasKey("Code");
 
-                    b.HasIndex("BrandId");
-
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProductGroupId");
-
-                    b.HasIndex("ProductProfileId");
 
                     b.HasIndex("UnitId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("StockManagementSys.Models.ProductGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductGroups");
-                });
-
-            modelBuilder.Entity("StockManagementSys.Models.ProductProfile", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductProfiles");
                 });
 
             modelBuilder.Entity("StockManagementSys.Models.Supplier", b =>
@@ -734,27 +644,9 @@ namespace StockManagementSys.Migrations
 
             modelBuilder.Entity("StockManagementSys.Models.Product", b =>
                 {
-                    b.HasOne("StockManagementSys.Models.Brand", "Brands")
-                        .WithMany()
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("StockManagementSys.Models.Category", "Categories")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StockManagementSys.Models.ProductGroup", "ProductGroups")
-                        .WithMany()
-                        .HasForeignKey("ProductGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StockManagementSys.Models.ProductProfile", "ProductProfiles")
-                        .WithMany()
-                        .HasForeignKey("ProductProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -764,13 +656,7 @@ namespace StockManagementSys.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Brands");
-
                     b.Navigation("Categories");
-
-                    b.Navigation("ProductGroups");
-
-                    b.Navigation("ProductProfiles");
 
                     b.Navigation("Units");
                 });

@@ -14,6 +14,7 @@ namespace StockManagementSys.Models
         [Required]
 
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime PoDate { get; set; }=DateTime.Now;
         [Required]
         [ForeignKey("SupplierId")]
