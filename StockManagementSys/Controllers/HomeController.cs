@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StockManagementSys.Models;
+using Entity.Concreate;
 using System.Diagnostics;
 
 namespace StockManagementSys.Controllers

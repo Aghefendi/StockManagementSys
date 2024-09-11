@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
-using StockManagementSys.Interfaces;
-using StockManagementSys.Models;
+using Entity.Concreate;
+using DataAccessLayer.Abstract;
 
 namespace StockManagementSys.Controllers
 {

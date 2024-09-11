@@ -1,9 +1,8 @@
 ﻿using CodeByStudent.Tools;
+using DataAccessLayer.Abstract;
+using Entity.Concreate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using StockManagementSys.Interfaces;
-using StockManagementSys.Models;
 
 namespace StockManagementSys.Controllers
 {

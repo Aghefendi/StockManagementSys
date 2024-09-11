@@ -1,5 +1,5 @@
 ﻿@using CodeByStudent.Tools
-@model IEnumerable<StockManagementSys.Models.ControlCheck>
+@model IEnumerable<Entity.Concreate.ControlCheck>
 
 @{
     // string currentModel = Helper.GetTypeName(Model.GetType().ToString());
@@ -50,12 +50,12 @@
             <th> Quantity</th>
             
            
-            <th> POdate </th>
+            <th> WareHouse Stock </th>
             
-            <th>  Quantity </th>
+            
             
           
-            <th>TotalQuantity </th>
+            <th>Total Stock </th>
            
         </tr>
     </thead>
@@ -79,15 +79,11 @@
                 <td> @item.InwardDetail.Inward.InwardDate.ToString("dd/MM/yyyy")</td>
              
                 <td> @item.InwardDetail.Quantity</td>
+                <td> @item.WareHouseStockQuantity.</td>
+                <td> @item.TotalStock</td>
                 
 
-                <td> @item.PoDetail.PoHeader.PoDate.ToString("dd/MM/yyyy")</td>
-             
-                <td> @item.PoDetail.Quantity</td>
-                
               
-
-                <td> @item.TotalQuantity</td>
 
                 <div class="btn-group">
                     <a asp-action="Edit" asp-route-id="@item.id">

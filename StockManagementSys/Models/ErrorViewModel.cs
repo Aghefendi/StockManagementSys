@@ -1,4 +1,4 @@
-namespace StockManagementSys.Models
+namespace Entity.Concreate
 {
     public class ErrorViewModel
     {

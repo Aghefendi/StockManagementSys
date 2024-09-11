@@ -1,12 +1,9 @@
 ﻿using CodeByStudent.Tools;
+using DataAccessLayer.Abstract;
+using Entity.Concreate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using StockManagementSys.Data;
-using StockManagementSys.Interfaces;
-using StockManagementSys.Models;
 using SortOrder = CodeByStudent.Tools.SortOrder;
 
 

@@ -1,10 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol.Plugins;
 using StockManagementSys.Data;
-using StockManagementSys.Interfaces;
-using StockManagementSys.Repositories;
 using Microsoft.AspNetCore.Identity;
-using StockManagementSys;
+using DataAccessLayer.Concreate.Repositories;
+using DataAccessLayer.Abstract;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +17,7 @@ builder.Services.AddScoped<IInward, InwardRepository>();
 builder.Services.AddScoped<IProduct, ProductRepository>();
 builder.Services.AddScoped<IControlCheck, ControlCheckRepository>();
 builder.Services.AddScoped<IPurchaseOrder,PurchaseOrderRepo>();
+builder.Services.AddScoped<IOutward, OutwardRepository>();
 
 
 builder.Services.AddDbContext<InventoryContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
