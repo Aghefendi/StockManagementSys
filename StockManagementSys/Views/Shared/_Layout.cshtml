@@ -1,111 +1,198 @@
 ﻿@using Microsoft.AspNetCore.Identity
-
 @inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser>   UserManager
+@inject UserManager<IdentityUser> UserManager
 
- 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Stock Management </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Admin |  Stock</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="~/Admin/plugins/fontawesome-free/css/all.min.css">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Admin/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/StockManagementSys.styles.css" asp-append-version="true" />
 </head>
-@{
 
-    string menuTextColor = "text-white";
-}
-<body>
-    <div class="container-fluid" style="background:linear-gradient(to right,#283408,#197695);">
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand @menuTextColor"  asp-area="" asp-controller="Home" asp-action="Index">Stock Management</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link @menuTextColor" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper ">
+        
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+         
+            <a href="@Url.Action("Index","Home")" class="brand-link">
+                <img src="~/Admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                     style="opacity: .8">
+                <span class="brand-text font-weight-light">Admin</span>
+            </a>
+           
+            <div class="sidebar">
+                
+                
+               
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                       
+                       
+                      
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            <li class="dropdown nav-item pr-2">
-                                <a class="nav-link dropdown-toggle @menuTextColor" href="#" id="mastersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Masters
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="mastersDropdown">
-                                    <li class="nav-item">
-                                        <a class="nav-link"  asp-area="" asp-controller="Unit" asp-action="Index">Units</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link " asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
-                                    </li>
-                                    
-                                   
-                                        <li class="nav-item">
-                                            <a class="nav-link " asp-area="" asp-controller="Supplier" asp-action="Index">Supplier</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link " asp-area="" asp-controller="PurchaseOrder" asp-action="Index">PurchaseOrder</a>
-                                        </li>
-                                </ul>
-                              
 
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                    <p>
+                                        Master
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Index","Unit")" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Unit</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Index","Category")" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Category</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Index","Product")" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Product</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Index","Supplier")" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Supplier</p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                    <p>
+                                        Transactions
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Index","PurchaseOrder")" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Purshase Order</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Index","Inward")" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Inward </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Index","Outward")" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Outward </p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="@Url.Action("Index","ControlChecks")" class="nav-link">
+                                    <i class="nav-icon fas fa-tree"></i>
+                                    <p>
+                                        Stok Balance
+                                    </p>
+                                </a>
                             </li>
 
-                               <li>
-
-                                    <a class="nav-link @menuTextColor" asp-area="" asp-controller="Inward" asp-action="Index">Inward</a>
-
-                                </li>
-                                <li>
-
-                                    <a class="nav-link @menuTextColor" asp-area="" asp-controller="Outward" asp-action="Index">Outward</a>
-
-                                </li>
-                                <li>
-
-                                    <a class="nav-link @menuTextColor" asp-area="" asp-controller="ControlChecks" asp-action="Index">Stock Control</a>
-
-                                </li>
-
                         }
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-edit"></i>
+                                <p>
+                                    İletişim & Mesajlar
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>
+                                    Yazılar
+                                </p>
+                            </a>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link @menuTextColor" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a href="pages/calendar.html" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>
+                                    Yetkilendirmeler
+                                </p>
+                            </a>
+                        </li>
+                     
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-envelope"></i>
+                                <p>
+                                    Hata Sayfaları
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                        </li>
+                      
+                        <li class="nav-item has-treeview">
+                            <partial name="_LoginPartial" />
+
                         </li>
                     </ul>
-
-                    <partial name="_LoginPartial" />
-                </div>
+                    
+                </nav>
+              
             </div>
-        </nav>
-    </header>
-
-    </div>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted" style="background:linear-gradient(to left,#28340B,#197696);">
-        <div class="container @menuTextColor">
-            &copy; 2024 - StockManager - <a class="@menuTextColor" asp-area="" asp-controller="Home" asp-action="Privacy" >Privacy</a>
+       
+        </aside>
+      
+        <div class="content-wrapper">
+     
+            <div class="content">
+                @RenderBody()
+               
+            </div>
+          
         </div>
-    </footer>
+       
+    </div>
+ 
+ 
+    <script src="~/Admin/plugins/jquery/jquery.min.js"></script>
+ 
+    <script src="~/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/Admin/dist/js/adminlte.js"></script>
+   
+    <script src="~/Admin/plugins/chart.js/Chart.min.js"></script>
+    <script src="~/Admin/dist/js/demo.js"></script>
+    <script src="~/Admin/dist/js/pages/dashboard3.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

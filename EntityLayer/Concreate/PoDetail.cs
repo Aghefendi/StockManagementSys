@@ -21,9 +21,8 @@ namespace Entity.Concreate
         public string ProductCode { get; set; }
         public virtual Product Product { get; private set; }
 
-        [Column(TypeName="smallmoney")]
-        [Required]
-        public decimal Quantity { get; set; }
+      
+        public int Quantity { get; set; }
 
         [MaxLength(100)]
         [NotMapped]

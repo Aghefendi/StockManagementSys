@@ -14,5 +14,52 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+ 
 }
+.IndexDıv {
+    position: fixed;
+    background: linear-gradient(to right, #C4E0,#C4E0F9);
+    bottom: 0%;
+    right: 0;
+    min-height: 90%;
+    min-width: 85%;
+}
+.IndexDıv2 {
+    position: fixed;
+    background: linear-gradient(to right, #C4E0,#C4E0F9);
+    bottom: 8%;
+    right: 0;
+    
+    min-height: 90%;
+    min-width: 85%;
+}
+
+
+
+.CenterContainer{
+    position:absolute;
+    transform:translate(-50%,-50%);
+    top:50%;
+    left:60%;
+
+}
+
+.CenterContainer form{
+    background:linear-gradient(to left, #28347d,#19767D);
+    padding:3em;
+    border-radius:20px;
+
+}
+.CenterContainer form input{
+
+    border-radius:20px;
+
+}
+.CenterContainer form .btn{
+    width:150px;
+    font-size:1em;
+
+
+}
+
+

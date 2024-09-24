@@ -1,54 +1,88 @@
-﻿@model IEnumerable<Outward>
+﻿@using CodeByStudent.Tools
+@model IEnumerable<Entity.Concreate.Outward>
 
-<h2>Mal Çıkış Listesi</h2>
+@{
+    ViewData["Title"] = "Index";
+   
+
+    PagerModel pager = ViewBag.Pager;
+    int intSno = 0;
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<div class="container-fluid btn-group">
+
+    <div class="col-10">
+        <h3>@ViewData["Title"]</h3>
+    </div>
+    <div class="col-2 justify-content-end">
+        <p>
+
+            <a asp-action="Create" class="btn btn-success">Create New</a>
+        </p>
+    </div>
+</div>
+
+@* <div class="col-4 p-0 justify-content-end mt-1">
+    <form asp-action="index">
+
+        <span class="btn-group">
+            <input class="form-control" type="text" name="SearchText" value="@ViewBag.SearchText" placeholder="SearchText" />
+            <input class="p-1 m-lg-2 btn btn-sm btn-danger" style="border-radius:10px" type="submit"  value="SearchText"/>
+
+        </span>
+    </form>
+
+</div> *@
+@* <div class="row">
+    <div class="col-12">
+        <partial name="_topBar" model="@pager" />
+
+
+
+    </div>
+
+
+</div> *@
+
 
 <table class="table">
     <thead>
         <tr>
-            <th>Outward ID</th>
-            <th>Control Check ID</th>
-            <th>Quantity</th>
-            <th>Outward Date</th>
+            <th>
+                Sno
+            </th>
+            
+            <th>
+                
+             
+                   Quantity
+              
+            </th>
+            <th> OutwardDate
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
+
+            intSno = intSno + 1;
+
+
+
             <tr>
-                <td>@item.OutwardId</td>
-                <td>@item.ControlCheck.InwardDetail.Product</td>
-                <td>@item.Quantity</td>
-                <td>@item.OutwardDate</td>
+
+
+                <td>
+                    @intSno
+                </td>
+                <td> @item.Quantity</td>
+
+
+                <td> @item.OutwardDate.ToString("dd/MM/yyyy")</td>
+
             </tr>
         }
     </tbody>
 </table>
-
-<h3>Yeni Mal Çıkışı</h3>
-
-<form method="post" asp-action="ProcessOutward">
-    <div class="form-group">
-        <label for="controlCheckId">Control Check ID:</label>
-        <input type="number" id="controlCheckId" name="controlCheckId" class="form-control" required />
-    </div>
-
-    <div class="form-group">
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" class="form-control" required />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Mal Çıkışı Yap</button>
-</form>
-
-@if (ViewBag.Message != null)
-{
-    <div class="alert alert-success">
-        @ViewBag.Message
-    </div>
-}
-@if (ViewBag.Error != null)
-{
-    <div class="alert alert-danger">
-        @ViewBag.Error
-    </div>
-}

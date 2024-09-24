@@ -40,7 +40,7 @@ namespace Entity.Concreate
         [Display(Name = "ProductGroup")]
        
 
-        public string PhotoUrl { get; set; } = "noimages.png";
+        public string PhotoUrl { get; set; } = "noimages.jpg";
         [Display(Name ="Product Photo")]
         [NotMapped]
         public IFormFile ProductPhoto { get; set; }

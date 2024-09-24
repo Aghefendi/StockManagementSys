@@ -1,9 +1,13 @@
 ﻿using DataAccessLayer.Abstract;
 using DataAccessLayer.Concreate.Repositories;
+using Entity.Concreate;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace StockManagementSys.Controllers
 {
+    [Authorize]
     public class OutwardController:Controller
     {
         private readonly IOutward _outwardRepository;
@@ -20,21 +24,33 @@ namespace StockManagementSys.Controllers
             return View(outwards);
         }
 
-        // Yeni outward işlemi (mal çıkışı) oluşturma
-        [HttpPost]
-        public IActionResult ProcessOutward(int controlCheckId, int quantity)
+        public IActionResult Create()
         {
+            Outward item = new Outward();
+
+            return View(item);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Outward item)
+        {
+
+
             try
             {
-                _outwardRepository.ProcessOutward(controlCheckId, quantity);
-                ViewBag.Message = "Mal çıkışı başarıyla gerçekleştirildi.";
+                item = _outwardRepository.Create(item);
+
             }
-            catch (InvalidOperationException ex)
+            catch
             {
-                ViewBag.Error = ex.Message;
+
+
             }
 
-            return RedirectToAction(nameof(Index)); // İşlem tamamlandığında Index'e dön
+            return RedirectToAction(nameof(Index));
         }
+
+
+
     }
 }

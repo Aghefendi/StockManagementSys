@@ -57,12 +57,15 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int>("WareHouseStockQuantity")
+                    b.Property<int?>("OutwardId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
                     b.HasIndex("InwardDetalId");
+
+                    b.HasIndex("OutwardId");
 
                     b.ToTable("ControlChecks");
                 });
@@ -117,8 +120,8 @@ namespace DataAccessLayer.Migrations
                         .HasMaxLength(6)
                         .HasColumnType("nvarchar(6)");
 
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("smallmoney");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -137,9 +140,6 @@ namespace DataAccessLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OutwardId"));
 
-                    b.Property<int>("ControlCheckId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("OutwardDate")
                         .HasColumnType("datetime2");
 
@@ -147,8 +147,6 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("OutwardId");
-
-                    b.HasIndex("ControlCheckId");
 
                     b.ToTable("Outwards");
                 });
@@ -172,8 +170,8 @@ namespace DataAccessLayer.Migrations
                         .HasMaxLength(6)
                         .HasColumnType("nvarchar(6)");
 
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("smallmoney");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -534,7 +532,15 @@ namespace DataAccessLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Entity.Concreate.Outward", "Outward")
+                        .WithMany()
+                        .HasForeignKey("OutwardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("InwardDetail");
+
+                    b.Navigation("Outward");
                 });
 
             modelBuilder.Entity("Entity.Concreate.Inward", b =>
@@ -565,17 +571,6 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Inward");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Entity.Concreate.Outward", b =>
-                {
-                    b.HasOne("Entity.Concreate.ControlCheck", "ControlCheck")
-                        .WithMany()
-                        .HasForeignKey("ControlCheckId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ControlCheck");
                 });
 
             modelBuilder.Entity("Entity.Concreate.PoDetail", b =>

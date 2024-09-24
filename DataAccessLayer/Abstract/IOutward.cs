@@ -13,6 +13,6 @@ namespace DataAccessLayer.Abstract
         List<Outward> GetAllOutwards();
 
         // Yeni Outward eklemek için
-        void ProcessOutward(int controlCheckId, int quantity);
+       Outward Create (Outward item);
     }
 }

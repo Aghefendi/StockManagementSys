@@ -87,11 +87,7 @@ namespace StockManagementSys.Controllers
             ViewBag.SearchText = SearchText;
 
                 List<Unit> units = _unitRepo.GetItems(sortModel.SortProperty, sortModel.SortOrder , SearchText,pg,pageSize );
-            //_context.Units.ToList();
-            //var pager = new PagerModel(units.Count, pg, pageSize);
-
-            //pager.SortExpression = sortExpression;
-            //this.ViewBag.Pager = pager;
+            
             int totRecors=((PaginatedList<Unit>)units).TotalRecords;
 
             //PaginatedList<Unit> reUnits = new PaginatedList<Unit>(units, pg, pageSize);

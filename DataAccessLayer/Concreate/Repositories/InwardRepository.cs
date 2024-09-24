@@ -71,12 +71,12 @@ namespace DataAccessLayer.Concreate.Repositories
             {
                 if (sortOrder == SortOrder.Ascending)
                 {
-                    items = items.OrderBy(d => d.InwardDetails).ToList();
+                    items = items.OrderBy(d => d.InwardNumber).ToList();
 
                 }
                 else
                 {
-                    items = items.OrderByDescending(d => d.InwardDetails).ToList();
+                    items = items.OrderByDescending(d => d.InwardNumber).ToList();
                 }
 
 

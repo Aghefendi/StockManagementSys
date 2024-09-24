@@ -12,8 +12,8 @@
    
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-<div class="container-fluid btn-group">
+<div class="IndexDıv2">
+<div class="container-fluid btn-group text-center ">
 
     <div class="col-10">
         <h3>@currentModel - Index</h3>
@@ -25,17 +25,7 @@
         </p>
     </div>
 </div>
-@* <div class="col-4 p-0 justify-content-end mt-1">
-    <form asp-action="index">
 
-        <span class="btn-group">
-            <input class="form-control" type="text" name="SearchText" value="@ViewBag.SearchText" placeholder="SearchText" />
-            <input class="p-1 m-lg-2 btn btn-sm btn-danger" style="border-radius:10px" type="submit"  value="SearchText"/>
-
-        </span>
-    </form>
-
-</div> *@
 <div class="row">
     <div class="col-12">
         <partial name="_topBar" model="@pager" />
@@ -48,7 +38,7 @@
 </div>
 
 
-<table class="table">
+<table class="table text-center">
     <thead>
         <tr>
           
@@ -167,3 +157,7 @@
 }
     </tbody>
 </table>
+</div>
+
+
+                    

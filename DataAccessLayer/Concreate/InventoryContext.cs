@@ -10,9 +10,7 @@ namespace StockManagementSys.Data
 {
     public class InventoryContext:IdentityDbContext
     {
-        public InventoryContext()
-        {
-        }
+       
 
         public InventoryContext(DbContextOptions options):base(options) 
         { 

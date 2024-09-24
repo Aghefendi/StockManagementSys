@@ -7,42 +7,34 @@
     ViewData["Title"] = "Index";
     // SortModel sortModel = (SortModel)ViewData["sortModel"];
 
-    // PagerModel pager = ViewBag.Pager;
+     PagerModel pager = ViewBag.Pager;
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-@* <div class="container-fluid btn-group">
 
-    <div class="col-10">
-        <h3>@currentModel - Index</h3>
-    </div>
-    <div class="col-2 justify-content-end">
-        <p>
 
-            <a asp-action="Create" class="btn btn-success">Create New</a>
-        </p>
+
+<div class="IndexDıv2">
+
+    <h2> Stock Control Page</h2>
+    <div class="container-fluid btn-group text-center ">
+
+     
     </div>
-</div>
 <div class="row">
     <div class="col-12">
         <partial name="_topBar" model="@pager" />
 
 
 
-    </div> 
+    </div>
 
 
-</div> *@
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+</div>
+<table class="table text-center">
     <thead>
         <tr>
-            <th> Product </th>
+            <th > Product </th>
             
             <th>  InwardDate </th>
             
@@ -50,7 +42,9 @@
             <th> Quantity</th>
             
            
-            <th> WareHouse Stock </th>
+            <th> Outward </th>
+
+            <th>Outward Date</th>
             
             
             
@@ -62,57 +56,36 @@
     <tbody>
         @foreach (var item in Model)
         {
-           @*  <tr class="table">
-                
-                <td>@(item.InwardDetail != null ? item.InwardDetail.Product.Name.ToString() : "N/A")</td>
-                <td>@(item.InwardDetail != null ? item.InwardDetail.Inward.InwardDate.ToString() : "N/A")</td>
-                <td>@(item.InwardDetail != null ? item.InwardDetail.Quantity.ToString() : "N/A")</td>
-                <td>@(item.PoDetail != null ? item.PoDetail.PoHeader.PoDate.ToString() : "N/A")</td>
-                <td>@(item.PoDetail != null ? item.PoDetail.Quantity.ToString() : "N/A")</td>
-                <th>@item.TotalQuantity</th>
-            </tr> *@
+          
 
             <tr >
-                <td> @item.InwardDetail.Product.Name</td>
+                    <td style="font:bold;"> @item.InwardDetail.Product.Name</td>
                 
 
                 <td> @item.InwardDetail.Inward.InwardDate.ToString("dd/MM/yyyy")</td>
              
                 <td> @item.InwardDetail.Quantity</td>
-                <td> @item.WareHouseStockQuantity.</td>
-                <td> @item.TotalStock</td>
+
+
+                <td> @item.Outward.Quantity.</td>
+
+                    <td> @item.Outward.OutwardDate.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        @if (item.TotalStock == 0)
+                        {
+                            <span class="text-danger">⚠️ 0 </span> <!-- Bu bir uyarı işareti -->
+                        }
+                        else
+                        {
+                            @item.TotalStock
+                        }
+                    </td>
                 
 
               
 
-                <div class="btn-group">
-                    <a asp-action="Edit" asp-route-id="@item.id">
-                        <span class="btn btn-sm btn-outline-primary">
-                            <i class="fa fa-edit" aria-hidden="true"></i>
-
-                        </span>
-
-                    </a>
-                </div>
-
-                <div class="btn-group">
-                    <a asp-action="Details" asp-route-id="@item.id">
-                        <span class="btn btn-sm btn-outline-dark">
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-
-                        </span>
-                    </a>
-                </div>
-
-                <div class="btn-group">
-                    <a asp-action="Delete" asp-route-id="@item.id">
-                        <span class="btn btn-sm btn-outline-danger">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-
-                        </span>
-                    </a>
-                </div>
             </tr>
         }
     </tbody>
 </table>
+</div>

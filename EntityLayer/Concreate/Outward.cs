@@ -15,18 +15,18 @@ namespace Entity.Concreate
             [Key]
             public int OutwardId { get; set; }
 
-            // Mal çıkışının yapıldığı ControlCheck kaydı
-            [Required]
-            [ForeignKey("ControlCheck")]
-            public int ControlCheckId { get; set; }
-            public virtual ControlCheck ControlCheck { get; set; }
+           
+           
 
-            // Mal çıkış miktarı
+            
             [Required]
             public int Quantity { get; set; }
 
-            // Çıkış tarihi
-            public DateTime OutwardDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime OutwardDate { get; set; }
         }
 
     }

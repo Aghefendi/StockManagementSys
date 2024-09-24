@@ -15,33 +15,21 @@ namespace Entity.Concreate
         public int? InwardDetalId { get; set; }
         public virtual InwardDetail InwardDetail { get;  set; }
 
-        public int WareHouseStockQuantity { get; set; }
+        [Required]
+        [ForeignKey("Outward")]
+
+        public int? OutwardId { get; set; }
+        public virtual Outward Outward { get; set; }
+
+
 
 
 
         public int TotalStock { 
-            get { return (InwardDetail != null ? (int)InwardDetail.Quantity : 0) + WareHouseStockQuantity; } 
+            get { return (InwardDetail != null ? (int)InwardDetail.Quantity : 0) - Outward.Quantity; } 
         }
 
-        public bool IsStockNegative()
-        {
-            return TotalStock < 0;
-        }
-        public void CheckStock()
-        {
-            if (IsStockNegative())
-            {
-                throw new InvalidOperationException("Total stock cannot be negative!");
-            }
-        }
-        public void DecreaseStock(int quantity)
-        {
-            if (quantity > WareHouseStockQuantity)
-            {
-                throw new InvalidOperationException("Depoda yeterli stok yok!");
-            }
-            WareHouseStockQuantity -= quantity;
-        }
+      
 
 
     }

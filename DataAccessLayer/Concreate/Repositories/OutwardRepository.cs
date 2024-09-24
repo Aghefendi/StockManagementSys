@@ -17,31 +17,19 @@ namespace DataAccessLayer.Concreate.Repositories
         {
             _repo = repo;
         }
+
+        public Outward Create(Outward item)
+        {
+            _repo.Outwards.Add(item);
+            _repo.SaveChanges();
+            return item;
+        }
+
         public List<Outward> GetAllOutwards()
         {
-            return _repo.Outwards
-                 .Include(o => o.ControlCheck)
-                 .Include(o => o.ControlCheck.InwardDetail).ToList();
+            return _repo.Outwards.ToList();
         }
 
-        public void ProcessOutward(int controlCheckId, int quantity)
-        {
-            var controlCheck = _repo.ControlChecks.FirstOrDefault(x => x.id == controlCheckId);
-
-            if (controlCheck != null)
-            {
-                controlCheck.DecreaseStock(quantity);
-
-                var outward = new Outward
-                {
-                    ControlCheckId = controlCheckId,
-                    Quantity = quantity,
-                    OutwardDate = DateTime.Now
-                };
-
-                _repo.Outwards.Add(outward);
-                _repo.SaveChanges();
-            }
+        
         }
     }
-}
